@@ -30,6 +30,7 @@ function setup() {
         let zPos; 
         let angle;
 
+        //assign world vals depending on i
         switch(i) {
             case 0:
                 xPos = 0;
@@ -56,6 +57,7 @@ function setup() {
             break;
         }
 
+        //create wall instances
         let wall = new AFrameP5.Plane({
             x:xPos, y: 1, z: zPos - 30,
             scaleX: 100, scaleY: 50,
@@ -96,6 +98,7 @@ function setup() {
     //placeholder fruits
     for (let i = 0; i < 5; i++) {
         let fruit = new Item("fruit", -4 + i*2, -0.5, -3);
+        Fruits.push(fruit);
     }
 
     //placeholder gong
@@ -110,11 +113,18 @@ function setup() {
 }
 
 function draw() {
+    //iterate over each instance of fruit
+    for(let f of Fruits) {
+        
+
+    }
 
 }
 
+//class for all fruit/bomb items
 class Item {
     constructor(type, x, y, z) {
+        //construct a sphere for collision detection
         this.obj = new AFrameP5.Sphere({
             x: x, y: y, z: z,
             scaleX: random(0.3, 0.8), scaleY: random(0.3, 0.8), scaleZ: random(0.3, 0.8),
@@ -122,8 +132,37 @@ class Item {
             green: random(0, 256),
             blue: random(0, 100)
         });
+
+        //determine if its fruit or bomb
         this.type = type;
 
+        if (this.type === "fruit") {
+            //random assign one of the fruit assets
+        } else {
+            //assign bomb asset
+        }
+
         world.add(this.obj);
+    }
+
+    move() {
+        //fruit moving behavior
+
+    }
+
+    collision() {
+        //detecting if instance is interacting with player
+
+    }
+
+    slice() {
+        //slicing logic + effects
+        //different effect depending on this.type
+
+    }
+
+    destroy() {
+        //garbage collection
+
     }
 }
