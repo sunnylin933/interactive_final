@@ -1,4 +1,6 @@
 
+let Fruits = [];
+
 function setup() {
 
     //creating the dojo environment
@@ -93,14 +95,7 @@ function setup() {
 
     //placeholder fruits
     for (let i = 0; i < 5; i++) {
-        let fruit = new AFrameP5.Sphere({
-            x: -4 + i*2, y: -0.5, z: -3,
-            scaleX: random(0.3, 0.8), scaleY: random(0.3, 0.8), scaleZ: random(0.3, 0.8),
-            red: random(0, 256),
-            green: random(0, 256),
-            blue: random(0, 256)
-        });
-        world.add(fruit);
+        let fruit = new Item("fruit", -4 + i*2, -0.5, -3);
     }
 
     //placeholder gong
@@ -116,4 +111,19 @@ function setup() {
 
 function draw() {
 
+}
+
+class Item {
+    constructor(type, x, y, z) {
+        this.obj = new AFrameP5.Sphere({
+            x: x, y: y, z: z,
+            scaleX: random(0.3, 0.8), scaleY: random(0.3, 0.8), scaleZ: random(0.3, 0.8),
+            red: random(0, 150),
+            green: random(0, 256),
+            blue: random(0, 100)
+        });
+        this.type = type;
+
+        world.add(this.obj);
+    }
 }
