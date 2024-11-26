@@ -132,6 +132,17 @@ function setup() {
     })
     world.add(katana);
 
+    //placeholder for score board
+    let scoreBoard = new AFrameP5.Plane({
+        x: -45, y: -0.5, z: -30,
+        scaleX: 30,
+        scaleY: 30,
+        side: "double",
+        rotationY: -90
+        //probably have dynamic texture?
+    });
+    world.add(scoreBoard);
+
 }
 
 function draw() {
