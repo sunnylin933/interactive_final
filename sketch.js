@@ -62,6 +62,18 @@ function setup() {
         world.add(wall);
     }
 
+    let ceiling = new AFrameP5.Plane({
+        x:0, y: 25, z: 0,
+        scaleX: 100, scaleY: 100,
+        asset: 'ceiling',
+        repeatX: 10,
+        repeatY: 10,
+        side: "double",
+        rotationX: -90
+    })
+
+    world.add(ceiling);
+
 }
 
 function draw() {
