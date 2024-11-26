@@ -103,6 +103,15 @@ function setup() {
         world.add(fruit);
     }
 
+    //placeholder gong
+    let gong = new AFrameP5.Box({
+        x: 0, y: -0.5, z: -15,
+        scaleX: 3,
+        scaleY: 3,
+        scaleZ: 1
+    })
+    world.add(gong);
+
 }
 
 function draw() {
