@@ -1,4 +1,4 @@
-
+//array to track fruit instances
 let Fruits = [];
 
 function setup() {
@@ -110,12 +110,34 @@ function setup() {
     })
     world.add(gong);
 
+    //placeholder dummy
+    let dummy = new AFrameP5.Box({
+        x: 10, y: -0.5, z: 5,
+        scaleX: 1,
+        scaleY: 8,
+        scaleZ: 1
+    })
+    world.add(dummy);
+
+    //placeholder weapon
+    let katana = new AFrameP5.Box({
+        x: -10, y: 0, z: 5,
+        scaleX: 0.5,
+        scaleY: 3,
+        scaleZ: 0.5,
+        clickFunction: function(self) {
+            console.log("equipped");
+            //equipping behavior here
+        }
+    })
+    world.add(katana);
+
 }
 
 function draw() {
     //iterate over each instance of fruit
     for(let f of Fruits) {
-        
+        //perform behavior
 
     }
 
