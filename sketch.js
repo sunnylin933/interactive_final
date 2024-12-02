@@ -7,8 +7,17 @@ let fruitSprites = [{unslice: 'peach', HSlice: 'peachH', VSlice: 'peachV'}];
 
 //instance for dynamic texture for scoreboard
 let scoreboardTxt;
+let sName;
 
 function setup() {
+
+    //setting up dynamic texture
+    scoreboardTxt = createCanvas(512, 512);
+    scoreboardTxt.background(100);
+    scoreboardTxt.textSize(100);
+    scoreboardTxt.text("Scoreboard", 100, 100);
+
+    sName = scoreboardTxt.id();
 
     //creating the dojo environment
     noCanvas();
@@ -145,11 +154,13 @@ function setup() {
         scaleX: 30,
         scaleY: 30,
         side: "double",
-        rotationY: -90
-        //probably have dynamic texture?
+        rotationY: -90,
+        asset: sName,
+        dynamicTexture: true,
+        dynamicTextureWidth: 512,
+        dynamicTextureHeight: 512
     });
     world.add(scoreBoard);
-
 }
 
 function draw() {
