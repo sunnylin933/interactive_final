@@ -1,6 +1,13 @@
 //array to track fruit instances
 let Fruits = [];
 
+//array for fruit 3d asset names
+//eg. example format for storing unsliced, horizontal, and vertical sliced assets
+let fruitSprites = [{unslice: 'peach', HSlice: 'peachH', VSlice: 'peachV'}];
+
+//instance for dynamic texture for scoreboard
+let scoreboardTxt;
+
 function setup() {
 
     //creating the dojo environment
@@ -97,7 +104,7 @@ function setup() {
 
     //placeholder fruits
     for (let i = 0; i < 5; i++) {
-        let fruit = new Item("fruit", -4 + i*2, -0.5, -3);
+        let fruit = new Item("fruit", -4 + i*2, -0.5, -3, "sandbox");
         Fruits.push(fruit);
     }
 
@@ -156,7 +163,7 @@ function draw() {
 
 //class for all fruit/bomb items
 class Item {
-    constructor(type, x, y, z) {
+    constructor(type, x, y, z, state) {
         //construct a sphere for collision detection
         this.obj = new AFrameP5.Sphere({
             x: x, y: y, z: z,
@@ -168,6 +175,9 @@ class Item {
 
         //determine if its fruit or bomb
         this.type = type;
+
+        //state of fruit
+        this.state = state;
 
         if (this.type === "fruit") {
             //random assign one of the fruit assets
