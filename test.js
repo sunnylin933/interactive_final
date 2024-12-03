@@ -9,6 +9,7 @@ function setup() {
     world = new AFrameP5.World('VRScene');
 
     world.setFlying(false);
+    world.enableWASD(true);
     world.setWASDAcceleration(40);
     world.setBackground(173, 216, 230);
 
@@ -21,4 +22,12 @@ function setup() {
         red:150, green: 150, blue:150
     });
     world.add(ground);
+
+    //Katana
+    katana = new AFrameP5.GLTF({
+        asset: 'katana',
+        x: 0, y: 0, z: 0,
+        scaleX: 1, scaleY: 1, scaleZ: 1,
+    });
+    world.add(katana);
 }

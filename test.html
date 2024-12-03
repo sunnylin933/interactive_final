@@ -13,11 +13,11 @@
 </head>
 
 <body>
-    <a-scene id="VRScene">
+    <a-scene id="VRScene" obb-collider="showColliders: true">
         <a-assets id="VRAssets">
+            <a-asset-item id="katana" src="assets/katana/katana.gltf" grabbable></a-asset-item>
         </a-assets>
-        <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;">
-        </a-entity>
+        <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;"></a-entity>
         <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;"></a-entity>
     </a-scene>
 </body>
