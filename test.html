@@ -17,15 +17,12 @@
         <a-assets id="VRAssets">
             <a-asset-item id="katana" src="assets/katana/katana.gltf"></a-asset-item>
         </a-assets>
-        <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;" tracked-controls="hand: left"></a-entity>
-        <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;" tracked-controls="hand: right">
-            <a-entity
-            gltf-model="Assets/katana/katana.gltf"
-            tracked-controls="hand: right"
-            >
-            </a-entity>
+        <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;"
+            tracked-controls="hand: left"></a-entity>
+        <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;">
+            <a-entity gltf-model="Assets/katana/katana.gltf" tracked-controls="hand: right" scale="1 1 1" rotation="0 180 0"></a-entity>
         </a-entity>
-         
+        <a-entity gltf-model="Assets/katana/katana.gltf" tracked-controls="hand: right" scale="1 1 1" rotation="0 180 0"></a-entity>
     </a-scene>
 </body>
 
