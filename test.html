@@ -17,8 +17,9 @@
         <a-assets id="VRAssets">
             <a-asset-item id="katana" src="assets/katana/katana.gltf"></a-asset-item>
         </a-assets>
-        <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;"></a-entity>
-        <!-- <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;"></a-entity> -->
+        <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;" tracked-controls="hand: left"></a-entity>
+        <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;" tracked-controls="hand: right"></a-entity>
+         
     </a-scene>
 </body>
 
