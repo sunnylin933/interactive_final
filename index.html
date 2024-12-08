@@ -12,7 +12,7 @@
     </head>
     <body>
         <a-scene>
-            <!-- ground -->
+            <!-- Ground -->
             <a-plane 
                 position="0 0 0" 
                 rotation="-90 0 0" 
@@ -21,22 +21,75 @@
                 material="src: #groundTexture; repeat: 20 20">
             </a-plane>
         
-            <!-- walls -->
-            <a-box position="0 2 -50" depth="0.1" height="40" width="100" material="src: #wallTexture"></a-box>
-            <a-box position="0 2 50" depth="0.1" height="40" width="100" rotation="0 180 0" material="src: #wallTexture"></a-box>
-            <a-box position="-50 2 0" depth="100" height="40" width="0.1" material="src: #wallTexture"></a-box>
-            <a-box position="50 2 0" depth="100" height="40" width="0.1" material="src: #wallTexture"></a-box>
+            <!-- Walls -->
+            <a-box 
+                position="0 15 -50" 
+                depth="0.1" 
+                height="30" 
+                width="100" 
+                material="src: #wallTexture; repeat: 10 3">
+            </a-box>
+            <a-box 
+                position="0 15 50" 
+                depth="0.1" 
+                height="30" 
+                width="100" 
+                rotation="0 180 0" 
+                material="src: #wallTexture; repeat: 10 3">
+            </a-box>
+            <a-box 
+                position="-50 15 0" 
+                depth="100" 
+                height="30" 
+                width="0.1" 
+                material="src: #wallTexture; repeat: 3 10">
+            </a-box>
+            <a-box 
+                position="50 15 0" 
+                depth="100" 
+                height="30" 
+                width="0.1" 
+                material="src: #wallTexture; repeat: 3 10">
+            </a-box>
         
-            <!-- sky -->
+            <!-- Table -->
+            <a-box 
+                position="0 0.75 17" 
+                depth="2" 
+                height="0.5" 
+                width="4" 
+                color="#8B5A2B">
+            </a-box>
+        
+            <!-- Grabbable Object -->
+            <a-sphere 
+                position="0 1.5 17" 
+                radius="0.5" 
+                color="#FF5733" 
+                dynamic-body 
+                grabbable>
+            </a-sphere>
+        
+            <!-- Player Spawn -->
+            <a-entity position="0 1.6 20">
+                <a-camera></a-camera>
+            </a-entity>
+        
+            <!-- Sky -->
             <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
         
-            <!-- assets -->
+            <!-- Assets -->
             <a-assets>
                 <img id="groundTexture" src="Assets/courtyardfloor.jpg">
                 <img id="wallTexture" src="Assets/sildingtexture.png">
                 <img id="skyTexture" src="Assets/skyimg.jpg">
             </a-assets>
+        
+            <!-- Physics and Interaction Libraries -->
+            <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/super-hands@4.0.2/dist/super-hands.min.js"></script>
         </a-scene>
+         
         
     </body>
 </html>
