@@ -13,10 +13,9 @@
 
 <body>
     <a-scene id="VRScene" obb-collider="showColliders: true">
-        <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;"></a-entity>
-        <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;">
-        </a-entity>
-        <a-entity gltf-model="assets/katana/katana.gltf" scale="0.5 0.5 0.5" rotation="0 0 0" grabbable></a-entity>
+        <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"></a-entity>
+        <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"></a-entity>
+        <a-entity gltf-model="assets/katana/katana.gltf" position="0 1 1" scale="0.5 0.5 0.5" rotation="0 0 0" class="interactable"></a-entity>
     </a-scene>
 </body>
 
