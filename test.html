@@ -5,18 +5,16 @@
     <title>Test Scene</title>
     <meta charset="UTF-8">
 
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
-    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/super-hands@^3.03/dist/super-hands.min.js"></script>
-    <!-- <script src="https://craignyu.github.io/aframep5/libraries/aframep5-v2.3.js"></script>
-    <script src="test.js"></script> -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
 </head>
 
 <body>
     <a-scene id="VRScene" obb-collider="showColliders: true">
         <a-entity super-hands id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"></a-entity>
         <a-entity super-hands id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"></a-entity>
-        <a-entity gltf-model="assets/katana/katana.gltf" position="0 -1 1" scale="0.35 0.35 0.35" rotation="0 0 0" class="interactable" grabbable></a-entity>
+        <a-entity gltf-model="assets/katana/katana.gltf" position="0 1 -0.5" scale="0.35 0.35 0.35" rotation="0 180 0" class="interactable" grabbable></a-entity>
     </a-scene>
 </body>
 
