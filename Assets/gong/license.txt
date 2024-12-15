@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gong
+* source:	https://sketchfab.com/3d-models/gong-30641a548633462187e889682361484b
+* author:	Twilby (https://sketchfab.com/Twilby)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gong" (https://sketchfab.com/3d-models/gong-30641a548633462187e889682361484b) by Twilby (https://sketchfab.com/Twilby) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
