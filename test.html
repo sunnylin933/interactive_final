@@ -76,10 +76,10 @@
                 handKatana.setAttribute("visible", "true");
                 worldKatana.setAttribute("visible", "false");
             })
-            this.el.addEventListener("grab-end", function () {
-                handKatana.setAttribute("visible", "false");
-                worldKatana.setAttribute("visible", "true");
-            })
+            // this.el.addEventListener("grab-end", function () {
+            //     handKatana.setAttribute("visible", "false");
+            //     worldKatana.setAttribute("visible", "true");
+            // })
         },
     });
 </script>
@@ -95,12 +95,12 @@
             static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable" rotation="20 0 0">
             <a-cursor position="0 0 -0.5"></a-cursor>
             <a-entity grabbable id="heldKatana" gltf-model="assets/katana/katana.gltf" position="0 0 0"
-                scale="0.35 0.35 0.35" rotation="65 180 0" visible="false" static-body="shape:auto"></a-entity>
+                scale="0.35 0.35 0.35" rotation="65 180 0" visible="false" static-body="shape:box"></a-entity>
         </a-entity>
 
         <a-plane color="grey" rotation="-90 0 0" scale="20 20 20" static-body></a-plane>
         <a-entity fruitgenerator position="0 0 0"></a-entity>
-        <a-box grabbable worldkatana id="worldKatana" class="interactable" static-body="shape:auto" position="0 1 -0.5"
+        <a-box grabbable worldkatana id="worldKatana" class="interactable" position="0 1 -0.5"
             rotation="0 180 0" geometry="primitive: box; width: 0.1; height: 1.25; depth: 0.1">
             <a-entity gltf-model="assets/katana/katana.gltf" scale="0.35 0.35 0.35" position="0 -0.5 0"></a-entity>
         </a-box>
