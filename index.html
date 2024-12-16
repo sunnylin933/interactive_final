@@ -12,22 +12,6 @@
     </head>
     <body>
         <a-scene>
-            <a-box 
-                position="0 0.75 17" 
-                depth="2" 
-                height="0.5" 
-                width="4" 
-                color="#8B5A2B">
-            </a-box>
-        
-            <!-- Grabbable Object -->
-            <a-sphere 
-                position="0 1.5 17" 
-                radius="0.5" 
-                color="#FF5733" 
-                dynamic-body 
-                grabbable>
-            </a-sphere>
         
             <!-- player -->
             <a-entity position="0 1.6 20">
@@ -37,8 +21,6 @@
             <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
         
             <a-assets>
-                <img id="groundTexture" src="Assets/courtyardfloor.jpg">
-                <img id="wallTexture" src="Assets/sildingtexture.png">
                 <img id="skyTexture" src="Assets/skyimg.jpg">
                 <a-asset-item id="fence-model" src="Assets/fence/scene.gltf"></a-asset-item>
                 <a-asset-item id="tree-model" src="Assets/tree/scene.gltf"></a-asset-item>
@@ -47,6 +29,7 @@
                 <a-asset-item id="crate1" src="Assets/crate/scene.gltf"></a-asset-item>
                 <a-asset-item id="crate2" src="Assets/crate2/scene.gltf"></a-asset-item>
                 <a-asset-item id="cart" src="Assets/cart/scene.gltf"></a-asset-item>
+                <a-asset-item id="table" src="Assets/table/scene.gltf"></a-asset-item>
             </a-assets>
 
             <a-entity gltf-model="#courtyard-model" position="-8 0 0" depth="0.1" scale="16 8 16"></a-entity>
@@ -64,6 +47,7 @@
               <a-entity gltf-model="#crate2" position="45 0 20" depth="0.1" scale="0.05 0.05 0.05" rotation="0 200 0"></a-entity>
               <a-entity gltf-model="#cart" position="50 0 -20" depth="0.1" scale="5 5 5" rotation="0 0 0"></a-entity>
               <a-entity gltf-model="#cart" position="50 0 20" depth="0.1" scale="5 5 5" rotation="0 200 0"></a-entity>
+              <a-entity gltf-model="#table" position="0 0 17" depth="0.1" scale="3 1.5 3" rotation="0 0 0"></a-entity>
 
               <a-sound id="bgm" src="url(sounds/bgm.mp3)" autoplay="false" loop="true" volume="0.5" position="0 0 0"></a-sound>
               <a-sound id="ambient" src="url(sounds/ambient.mp3)" autoplay="false" loop="true" volume="0.8" position="0 0 0"></a-sound>
