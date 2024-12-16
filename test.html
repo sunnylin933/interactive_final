@@ -61,13 +61,6 @@
 
         newFruit.setAttribute("dynamic-body", "shape:sphere");
 
-        // newFruit.addEventListener('body-loaded', function (el) {
-        //     newFruit.body.applyImpulse(
-        //         new CANNON.Vec3(0, 0, 1),
-        //         new CANNON.Vec3().copy(this.getAttribute('position'))
-        //     );
-        // });
-
         newFruit.addEventListener('collide', function (e) {
             console.log('Player has collided with body #' + e.detail.body.id);
         });
@@ -102,7 +95,7 @@
             static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable" rotation="20 0 0">
             <a-cursor position="0 0 -0.5"></a-cursor>
             <a-entity grabbable id="heldKatana" gltf-model="assets/katana/katana.gltf" position="0 0 0"
-                scale="0.35 0.35 0.35" rotation="65 180 0" visible="false"></a-entity>
+                scale="0.35 0.35 0.35" rotation="65 180 0" visible="false" static-body="shape:auto"></a-entity>
         </a-entity>
 
         <a-plane color="grey" rotation="-90 0 0" scale="20 20 20" static-body></a-plane>
