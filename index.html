@@ -22,7 +22,6 @@
         
             <a-assets>
                 <img id="skyTexture" src="Assets/skyimg.jpg">
-                <a-asset-item id="fence-model" src="Assets/fence/scene.gltf"></a-asset-item>
                 <a-asset-item id="tree-model" src="Assets/tree/scene.gltf"></a-asset-item>
                 <a-asset-item id="gong-model" src="Assets/gong/scene.gltf"></a-asset-item>
                 <a-asset-item id="courtyard-model" src="Assets/courtyard/scene.gltf"></a-asset-item>
@@ -32,6 +31,7 @@
                 <a-asset-item id="table" src="Assets/table/scene.gltf"></a-asset-item>
             </a-assets>
 
+            <!--courtyard-->
             <a-entity gltf-model="#courtyard-model" position="-8 0 0" depth="0.1" scale="16 8 16"></a-entity>
             <a-entity gltf-model="#gong-model" position="0.2 0 -15" depth="0.1" scale="1.1 1.1 1.1"></a-entity>
               <a-entity gltf-model="#tree-model" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
@@ -39,6 +39,7 @@
               <a-entity gltf-model="#tree-model" position="46 4 43" depth="0.1" scale="5 5 5" rotation="0 100 0"></a-entity>
               <a-entity gltf-model="#tree-model" position="-46 4 43" depth="0.1" scale="5 5 5" rotation="0 130 0"></a-entity>
                 
+            <!--crates, cart-->
               <a-entity gltf-model="#crate1" position="55 0 -10" depth="0.1" scale="5 5 5" rotation="0 110 0"></a-entity>
               <a-entity gltf-model="#crate1" position="40 0 -18" depth="0.1" scale="5 5 5" rotation="0 170 0"></a-entity>
               <a-entity gltf-model="#crate1" position="55 0 10" depth="0.1" scale="5 5 5" rotation="0 90 0"></a-entity>
@@ -47,8 +48,11 @@
               <a-entity gltf-model="#crate2" position="45 0 20" depth="0.1" scale="0.05 0.05 0.05" rotation="0 200 0"></a-entity>
               <a-entity gltf-model="#cart" position="50 0 -20" depth="0.1" scale="5 5 5" rotation="0 0 0"></a-entity>
               <a-entity gltf-model="#cart" position="50 0 20" depth="0.1" scale="5 5 5" rotation="0 200 0"></a-entity>
+              
+              <!-- table -->
               <a-entity gltf-model="#table" position="0 0 17" depth="0.1" scale="3 1.5 3" rotation="0 0 0"></a-entity>
 
+              <!--ambient sound-->
               <a-sound id="bgm" src="url(sounds/bgm.mp3)" autoplay="false" loop="true" volume="0.5" position="0 0 0"></a-sound>
               <a-sound id="ambient" src="url(sounds/ambient.mp3)" autoplay="false" loop="true" volume="0.8" position="0 0 0"></a-sound>
 
