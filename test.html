@@ -69,7 +69,7 @@
 
 <body>
     <a-scene id="scene" physics="debug:true">
-        <a-camera></a-camera>
+        <a-camera universal-controls></a-camera>
         <a-entity super-hands id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"></a-entity>
         <a-entity super-hands id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable">
             <a-cursor position="0 0 -0.5"></a-cursor>
