@@ -50,16 +50,16 @@
         let scene = document.querySelector("#scene");
         let newFruit = document.createElement('a-sphere');
 
-        newFruit.setAttribute('gltf-model', fruitModels[Math.floor(Math.random()*fruitModels.length)]);
+        newFruit.setAttribute('gltf-model', fruitModels[Math.floor(Math.random() * fruitModels.length)]);
         newFruit.setAttribute('scale', '0.2 0.2 0.2 ');
         newFruit.setAttribute('rotation', `${Math.random() * 180} ${Math.random() * 180} ${Math.random() * 180}`);
 
         let newX = Math.random() * 2 - 1;
         newFruit.setAttribute("position", `${newX} 2 -14`);
-        newFruit.setAttribute("velocity", `${randomRange(-1, 1)} ${randomRange(1,3)} 13`);
+        newFruit.setAttribute("velocity", `${randomRange(-1, 1)} ${randomRange(1, 3)} 13`);
         scene.appendChild(newFruit);
 
-        newFruit.setAttribute("dynamic-body", "shape:sphere");
+        newFruit.setAttribute("dynamic-body", "shape:sphere; sphereRadius: 0.3");
 
         newFruit.addEventListener('collide', function (e) {
             console.log('Player has collided with body #' + e.detail.body.id);
@@ -76,34 +76,39 @@
                 handKatana.setAttribute("visible", "true");
                 worldKatana.setAttribute("visible", "false");
             })
-            // this.el.addEventListener("grab-end", function () {
-            //     handKatana.setAttribute("visible", "false");
-            //     worldKatana.setAttribute("visible", "true");
-            // })
+            this.el.addEventListener("grab-end", function () {
+                handKatana.setAttribute("visible", "false");
+                handKatana.removeAttribute("body");
+                worldKatana.setAttribute("visible", "true");
+            })
         },
     });
 </script>
 
 <body>
-    <a-scene id="scene" physics="debug:true friction: 0.5; restitution: 0.5; gravity: -5;" obb-collider="showColliders: true">
+    <a-scene id="scene" physics="debug:true friction: 0.5; restitution: 0.5; gravity: -5;"
+        obb-collider="showColliders: true">
         <a-camera look-controls wasd-controls></a-camera>
 
         <a-entity super-hands grab id="leftHand" hand-controls="hand: left;"
             static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"
             rotation="20 0 0"></a-entity>
+
         <a-entity super-hands grab id="rightHand" hand-controls="hand: right;"
-            static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable" rotation="20 0 0">
+            static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable" rotation="-80 0 0">
             <a-cursor position="0 0 -0.5"></a-cursor>
-            <a-entity grabbable id="heldKatana" gltf-model="assets/katana/katana.gltf" position="0 0 0"
-                scale="0.35 0.35 0.35" rotation="65 180 0" visible="false" static-body="shape:box"></a-entity>
+            <a-entity id="heldKatana" position="0 0.5 0" scale="0.35 0.35 0.35" rotation="0 180 0"
+                visible="false" obb-collider>
+                <a-entity gltf-model="assets/katana/katana.gltf" position="0 -1.5 0"></a-entity>
+            </a-entity>
         </a-entity>
 
         <a-plane color="grey" rotation="-90 0 0" scale="20 20 20" static-body></a-plane>
         <a-entity fruitgenerator position="0 0 0"></a-entity>
-        <a-box grabbable worldkatana id="worldKatana" class="interactable" position="0 1 -0.5"
-            rotation="0 180 0" geometry="primitive: box; width: 0.1; height: 1.25; depth: 0.1">
+        <a-entity worldkatana grabbable class="interactable" id="worldKatana" position="0 1 -0.5" rotation="0 180 90" geometry="primitive: box; width: 0.1; height: 1; depth: 0.1">
             <a-entity gltf-model="assets/katana/katana.gltf" scale="0.35 0.35 0.35" position="0 -0.5 0"></a-entity>
-        </a-box>
+        </a-entity>
+    </a-scene>
 </body>
 
 </html>
