@@ -58,22 +58,18 @@
                 <a-asset-item id="gong-model" src="Assets/gong/scene.gltf"></a-asset-item>
                 <a-asset-item id="courtyard-model" src="Assets/courtyard/scene.gltf"></a-asset-item>
             </a-assets>
+
             <a-entity gltf-model="#courtyard-model" position="-8 0 0" depth="0.1" scale="16 8 16"></a-entity>
             <a-entity gltf-model="#gong-model" position="0.2 0 -15" depth="0.1" scale="1.1 1.1 1.1"></a-entity>
-
-              <!-- Place the model in the scene 
-              <a-entity gltf-model="#fence-model" position="-17 -1 -5" depth="0.1" scale="1.5 1.5 1.5"></a-entity>
-              <a-entity gltf-model="#fence-model" position="-27 -1 35" depth="0.1" scale="1.5 1.5 1.5" 
-              rotation="0 90 0"></a-entity>
-              <a-entity gltf-model="#fence-model" position="-17 -1 55" depth="0.1" scale="1.5 1.5 1.5"></a-entity>
-              <a-entity gltf-model="#fence-model" position="43 -1 35" depth="0.1" scale="1.5 1.5 1.5" 
-              rotation="0 90 0"></a-entity>
-                -->
               <a-entity gltf-model="#tree-model" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
               <a-entity gltf-model="#tree-model" position="51 4 -45" depth="0.1" scale="5 5 5" rotation="0 180 0"></a-entity>
               <a-entity gltf-model="#tree-model" position="46 4 43" depth="0.1" scale="5 5 5" rotation="0 100 0"></a-entity>
               <a-entity gltf-model="#tree-model" position="-46 4 43" depth="0.1" scale="5 5 5" rotation="0 130 0"></a-entity>
                 
+
+              <a-sound src="url(sounds/bgm.mp3)" autoplay="true" loop="true" volume="0.4" position="0 2 -5"></a-sound>
+              <a-sound src="url(sounds/ambient.mp3)" autoplay="true" loop="true" volume="0.2" position="0 2 -5"></a-sound>
+
             <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/super-hands@4.0.2/dist/super-hands.min.js"></script>
         </a-scene>
