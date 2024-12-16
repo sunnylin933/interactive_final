@@ -1,0 +1,11 @@
+Model Information:
+* title:	Photogrammetry Fruit & Vegetable Crate
+* source:	https://sketchfab.com/3d-models/photogrammetry-fruit-vegetable-crate-7371cda2f79c46f2a28769980986e89a
+* author:	Krishu (https://sketchfab.com/manoj44)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Photogrammetry Fruit & Vegetable Crate" (https://sketchfab.com/3d-models/photogrammetry-fruit-vegetable-crate-7371cda2f79c46f2a28769980986e89a) by Krishu (https://sketchfab.com/manoj44) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
