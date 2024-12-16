@@ -54,12 +54,16 @@
 
     AFRAME.registerComponent("worldkatana",{
         init: function(){
+            let scene = document.querySelector("#scene");
+            let handKatana = document.querySelector('#heldKatana');
+            let worldKatana = document.querySelector('#worldKatana');
             this.el.addEventListener("grab-start", function(){
-                let scene = document.querySelector("#scene");
-                let handKatana = document.querySelector('#heldKatana');
-                let worldKatana = document.querySelector('#worldKatana');
                 handKatana.setAttribute("visible", "true");
                 worldKatana.setAttribute("visible", "false");
+            })
+            this.el.addEventListener("grab-end", function(){
+                handKatana.setAttribute("visible", "false");
+                worldKatana.setAttribute("visible", "true");
             })
         },
     });
@@ -68,17 +72,20 @@
 </script>
 
 <body>
-    <a-scene id="scene" physics="debug:true">
+    <a-scene id="scene" physics="debug:true" obb-collider="showColliders: true">
         <a-camera universal-controls></a-camera>
-        <a-entity super-hands id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"></a-entity>
-        <a-entity super-hands id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable">
+        <a-entity super-hands id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable" rotation="20 0 0"></a-entity>
+        <a-entity super-hands id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable" rotation="20 0 0">
             <a-cursor position="0 0 -0.5"></a-cursor>
-            <a-entity grabbable id="heldKatana" gltf-model="assets/katana/katana.gltf" position="0 0 0" scale="0.35 0.35 0.35" rotation="20 180 0" visible="false"></a-entity>
+            <a-entity grabbable id="heldKatana" gltf-model="assets/katana/katana.gltf" position="0 0 0" scale="0.35 0.35 0.35" rotation="40 180 0" visible="false"></a-entity>
         </a-entity>
 
         <a-plane color="grey" rotation="-90 0 0" scale="20 20 20" static-body></a-plane>
         <a-box spheregenerator color="red" scale="0.5 0.5 0.5" position="0 2 -2"></a-box>
-        <a-entity worldkatana grabbable id="worldKatana" gltf-model="assets/katana/katana.gltf" position="0 1 -0.5" scale="0.35 0.35 0.35" rotation="0 180 0" class="interactable"></a-entity>
+        <a-entity grabbable worldkatana obb-collider id="worldKatana" class="interactable" position="0 1 -0.5" rotation="0 180 0" geometry="width: 0.1; height: 1; depth: 0.1" material="opacity: 0.0; transparent: true">
+            <a-entity gltf-model="assets/katana/katana.gltf" scale="0.35 0.35 0.35"></a-entity>
+        </a-entity>
+        
     </a-scene>
 </body>
 
