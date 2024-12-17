@@ -1,0 +1,6 @@
+1. scene crashing from removing fruit object from scene on collide
+2. scene crashing from trying to disable dynamic-body on collide
+3. seems like fps is not controllable? so timing variations
+4. cant adjust superhands collider (not sure what is determining the boundary)
+5. thumbstick detection is non-continuous
+6. grab detection is very fidgety (triggers and untriggers randomly)

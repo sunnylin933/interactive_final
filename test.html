@@ -4,89 +4,188 @@
 <head>
     <title>Test Scene</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
 
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
     <script
-        src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.2/dist/aframe-physics-system.min.js"></script>
+        src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.2/dist/aframe-physics-system.js"></script>
 </head>
 
 <script src="helper_functions.js"></script>
 <script>
-    let timeToSpawn = randomRange(2, 10);
-    let timer = setInterval(function () {
-        timeToSpawn--;
-    }, 1000);
+    let gameTime = 30;
+    let timer;
+    let timeToSpawn = randomRange(10, 20);
+    let fruitModels = ['assets/fruits/apple.gltf', 'assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
+    let score = 0;
 
-    AFRAME.registerComponent("spheregenerator", {
-    init: function () {
-        this.el.addEventListener('click', function(){
-            let scene = document.querySelector("#scene");
-            let newSphere = document.createElement('a-sphere');
-            
-            newSphere.setAttribute('color', 'yellow');
-            newSphere.setAttribute('scale', '0.3 0.3 0.3');
-            newSphere.setAttribute('rotation', `${Math.random()*180} ${Math.random()*180} ${Math.random()*180}`)
-            let newX = Math.random() * 2 - 1;
-            newSphere.setAttribute("position", `${newX} 5 -3`);
-            newSphere.setAttribute("dynamic-body", "shape:sphere");
-            scene.appendChild(newSphere);
-        });
-    },
-    tick: function () {
-        if(timeToSpawn <= 0){
-            let scene = document.querySelector("#scene");
-            let newSphere = document.createElement('a-sphere');
-
-            newSphere.setAttribute('color', 'yellow');
-            newSphere.setAttribute('scale', '0.3 0.3 0.3');
-            newSphere.setAttribute('rotation', `${Math.random()*180} ${Math.random()*180} ${Math.random()*180}`)
-
-            let newX = Math.random() * 2 - 1;
-            newSphere.setAttribute("position", `${newX} 5 -3`);
-            newSphere.setAttribute("dynamic-body", "shape:sphere");
-            scene.appendChild(newSphere);
-            timeToSpawn = randomRange(2, 10);
+    AFRAME.registerComponent('thumbstick', {
+        init: function () {
+            this.el.addEventListener('thumbstickmoved', this.logThumbstick);
+        },
+        logThumbstick: function (evt) {
+            let player = document.querySelector('#rig');
+            if (evt.detail.y > 0.5) {
+                //Backward
+                var direction = new THREE.Vector3(0, 0, 1);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position', pos);
+            }
+            if (evt.detail.y < -0.5) {
+                //Forward
+                var direction = new THREE.Vector3(0, 0, -1);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position', pos);
+            }
+            if (evt.detail.x < -0.5) {
+                //Left
+                var direction = new THREE.Vector3(-1, 0, 0);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position', pos);
+            }
+            if (evt.detail.x > 0.5) {
+                //Right
+                var direction = new THREE.Vector3(1, 0, 0);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position', pos);
+            }
         }
-    },
-});
+    });
 
-    AFRAME.registerComponent("worldkatana",{
-        init: function(){
+    AFRAME.registerComponent('lookstick', {
+        init: function () {
+            this.el.addEventListener('thumbstickmoved', this.logThumbstick);
+        },
+        logThumbstick: function (evt) {
+            let player = document.querySelector('#rig');
+            if (evt.detail.x < -0.5) {
+                //Left
+                var direction = new THREE.Euler(0, 1, 0);
+                direction.multiplyScalar(1);
+                var rot = player.getAttribute("rotation");
+                rot.add(direction);
+                player.setAttribute('rotation', rot);
+            }
+            if (evt.detail.x > 0.5) {
+                //Right
+                var direction = new THREE.Euler(0, -1, 0);
+                direction.multiplyScalar(1);
+                var rot = player.getAttribute("rotation");
+                rot.add(direction);
+                player.setAttribute('rotation', rot);
+            }
+        }
+    });
+
+    AFRAME.registerComponent("fruitgenerator", {
+        init: function () {
+        },
+        tick: function () {
+            if (timeToSpawn <= 0) {
+                generateFruit(this.el);
+                timeToSpawn = randomRange(10, 20);
+            }
+        },
+
+    });
+
+    function generateFruit(element) {
+        let scene = document.querySelector("#scene");
+        let newFruit = document.createElement('a-sphere');
+
+        newFruit.setAttribute('gltf-model', fruitModels[Math.floor(Math.random() * fruitModels.length)]);
+        newFruit.setAttribute('scale', '0.3 0.3 0.3 ');
+        newFruit.setAttribute('rotation', `${Math.random() * 180} ${Math.random() * 180} ${Math.random() * 180}`);
+
+        let newX = Math.random() * 2 - 1;
+        newFruit.setAttribute("position", `${newX} 2 -14`);
+        newFruit.setAttribute("velocity", `${randomRange(-1, 1)} ${randomRange(1, 3)} 13`);
+        scene.appendChild(newFruit);
+        newFruit.setAttribute("dynamic-body", "shape:sphere; sphereRadius: 0.25");
+        newFruit.setAttribute('sound', 'src:#slice; autoplay: false');
+
+        newFruit.addEventListener('collide', function (e) {
+            newFruit.setAttribute('visible', 'false');
+            if (e.detail.body.id == document.querySelector('#heldKatana').body.id) {
+                //Sword Hit
+                newFruit.components.sound.playSound();
+                console.log('Fruit has collided sword.')
+                score += 100;
+            }
+            else if (e.detail.body.id == 1) {
+                console.log('Fruit has collided ground.')
+            }
+        });
+
+    }
+
+    AFRAME.registerComponent("worldkatana", {
+        init: function () {
             let scene = document.querySelector("#scene");
             let handKatana = document.querySelector('#heldKatana');
             let worldKatana = document.querySelector('#worldKatana');
-            this.el.addEventListener("grab-start", function(){
+
+            this.el.addEventListener("grab-start", function () {
                 handKatana.setAttribute("visible", "true");
                 worldKatana.setAttribute("visible", "false");
-            })
-            this.el.addEventListener("grab-end", function(){
-                handKatana.setAttribute("visible", "false");
-                worldKatana.setAttribute("visible", "true");
+                timer = setInterval(function () {
+                    timeToSpawn--;
+                }, 1000);
             })
         },
     });
-
-
 </script>
 
 <body>
-    <a-scene id="scene" physics="debug:true" obb-collider="showColliders: true">
-        <a-camera universal-controls></a-camera>
-        <a-entity super-hands id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable" rotation="20 0 0"></a-entity>
-        <a-entity super-hands id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly;" static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable" rotation="20 0 0">
-            <a-cursor position="0 0 -0.5"></a-cursor>
-            <a-entity grabbable id="heldKatana" gltf-model="assets/katana/katana.gltf" position="0 0 0" scale="0.35 0.35 0.35" rotation="40 180 0" visible="false"></a-entity>
+    <a-scene id="scene" physics="gravity: -5;">
+        <a-assets>
+            <img id="skyTexture" src="Assets/skyimg.jpg">
+            <a-asset-item id="tree-model" src="Assets/tree/scene.gltf"></a-asset-item>
+            <a-asset-item id="courtyard-model" src="Assets/courtyard/scene.gltf"></a-asset-item>
+            <audio id="slice" src="assets/slice.mp3" preload="auto"></audio>
+        </a-assets>
+
+        <a-entity id="rig" rotation="0 0 0" position="0 0 10">
+            <a-camera look-controls wasd-controls></a-camera>
+
+            <a-entity super-hands grab id="leftHand" hand-controls="hand: left;" thumb-controls="hand: left"
+                static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"
+                rotation="20 0 0" lookstick></a-entity>
+
+            <a-entity super-hands grab id="rightHand" hand-controls="hand: right;" thumb-controls="hand: right"
+                static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"
+                rotation="-80 0 0" thumbstick>
+                <a-entity id="heldKatana" position="-0.025 0.12 -0.47" scale="0.35 0.35 0.35" rotation="75 180 0"
+                    visible="false" body="type: static; mass: 5; shape: none;" shape__main="shape: box;
+                         halfExtents: 0.15 1.65 0.15;">
+                    <a-entity gltf-model="assets/katana/katana.gltf" position="0 -1.5 0"></a-entity>
+                </a-entity>
+            </a-entity>
         </a-entity>
 
-        <a-plane color="grey" rotation="-90 0 0" scale="20 20 20" static-body></a-plane>
-        <a-box spheregenerator color="red" scale="0.5 0.5 0.5" position="0 2 -2"></a-box>
-        <a-entity grabbable worldkatana obb-collider id="worldKatana" class="interactable" position="0 1 -0.5" rotation="0 180 0" geometry="width: 0.1; height: 1; depth: 0.1" material="opacity: 0.0; transparent: true">
-            <a-entity gltf-model="assets/katana/katana.gltf" scale="0.35 0.35 0.35"></a-entity>
+        <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
+        <a-entity gltf-model="#courtyard-model" position="-4 -1 0" scale="8 5 8"></a-entity>
+        <a-entity gltf-model="#tree-model" position="-31 3.25 -35" scale="5 5 5"></a-entity>
+        <a-entity gltf-model="#tree-model" position="10 3.25 -12" scale="5 5 5" rotation="0 200 0"></a-entity>
+        <a-entity gltf-model="#tree-model" position="42 3.25 13" scale="5 5 5" rotation="0 100 0"></a-entity>
+        <a-entity gltf-model="#tree-model" position="-28 3.25 38" scale="5 5 5" rotation="0 167 0"></a-entity>
+
+        <a-plane color="grey" rotation="-90 0 0" scale="100 100 100" visible = "false" static-body></a-plane>
+        <a-entity fruitgenerator position="0 0 0"></a-entity>
+        <a-entity worldkatana grabbable class="interactable" id="worldKatana" position="0 1 -3" rotation="0 180 90"
+            geometry="primitive: box; width: 0.1; height: 1; depth: 0.1" material="opacity: 0.0; transparent: true">>
+            <a-entity gltf-model="assets/katana/katana.gltf" scale="0.6 0.6 0.6" position="0 -0.5 0"></a-entity>
         </a-entity>
-        
-    </a-scene>
 </body>
 
 </html>

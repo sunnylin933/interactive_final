@@ -7,12 +7,11 @@
 
         <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
         <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-        <script src="https://craignyu.github.io/aframep5/libraries/aframep5-v2.3.js"></script>
     
     </head>
     <body>
         <a-scene>
-        
+
             <!-- player -->
             <a-entity position="0 1.6 20">
                 <a-camera></a-camera>
@@ -30,6 +29,7 @@
                 <a-asset-item id="cart" src="Assets/cart/scene.gltf"></a-asset-item>
                 <a-asset-item id="table" src="Assets/table/scene.gltf"></a-asset-item>
             </a-assets>
+
 
             <!--courtyard-->
             <a-entity gltf-model="#courtyard-model" position="-8 0 0" depth="0.1" scale="16 8 16"></a-entity>
