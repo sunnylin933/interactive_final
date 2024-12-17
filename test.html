@@ -58,18 +58,14 @@
         newFruit.setAttribute("velocity", `${randomRange(-1, 1)} ${randomRange(1, 3)} 13`);
         scene.appendChild(newFruit);
         newFruit.setAttribute("dynamic-body", "shape:sphere; sphereRadius: 0.25");
+        newFruit.setAttribute('sound','src:#slice; autoplay: false');
 
         newFruit.addEventListener('collide', function (e) {
             newFruit.setAttribute('visible', 'false');
-            switch (e.detail.body.id) {
-                case 1: arguments
-                    console.log('Fruit has collided sword.')
-                    break;
-                case 3: arguments
-                    console.log('Fruit has collided floor.')
-                    break;
+            if(e.detail.body.id == document.querySelector('#heldKatana').body.id){
+                newFruit.components.sound.playSound();
+                console.log('Fruit has collided sword.')
             }
-            console.log(e);
         });
 
     }
@@ -93,6 +89,9 @@
 
 <body>
     <a-scene id="scene" physics="friction: 0.5; restitution: 0.5; gravity: -5;">
+        <a-assets>
+            <audio id="slice" src="assets/slice.mp3" preload="auto"></audio>
+        </a-assets>
         <a-entity id="rig">
             <a-camera look-controls wasd-controls></a-camera>
 
