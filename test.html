@@ -20,6 +20,7 @@
     let timer;
     let timeToSpawn = randomRange(10, 20);
     let fruitModels = ['#appleModel', '#orangeModel', '#lemonModel', '#peachModel', '#watermelonModel'];
+    let score = 0;
 
     AFRAME.registerComponent('thumbstick', {
         init: function () {
@@ -148,12 +149,12 @@
 <body>
     <a-scene id="scene" physics="friction: 0.5; restitution: 0.5; gravity: -5;">
         <a-assets>
-            <img id="groundTexture" src="assets/courtyardfloor.jpg">
-            <img id="wallTexture" src="assets/sildingtexture.png">
+            <!-- <img id="groundTexture" src="assets/courtyardfloor.jpg">
+            <img id="wallTexture" src="assets/sildingtexture.png"> -->
             <img id="skyTexture" src="assets/skyimg.jpg">
-            <a-asset-item id="treeModel" src="assets/tree/scene.gltf"></a-asset-item>
+            <!-- <a-asset-item id="treeModel" src="assets/tree/scene.gltf"></a-asset-item>
             <a-asset-item id="gongModel" src="assets/gong/scene.gltf"></a-asset-item>
-            <a-asset-item id="courtyardModel" src="assets/courtyard/scene.gltf"></a-asset-item>
+            <a-asset-item id="courtyardModel" src="assets/courtyard/scene.gltf"></a-asset-item> -->
 
             <a-asset-item id="katanaModel" src="assets/katana/katana.gltf"></a-asset-item>
             <a-asset-item id="appleModel" src="assets/fruits/apple.gltf"></a-asset-item>
