@@ -1,203 +1,74 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title> Fruit Ninja VR </title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
 
-<head>
-    <title> Fruit Ninja VR </title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
-    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <script src="https://craignyu.github.io/aframep5/libraries/aframep5-v2.3.js"></script>
-
-</head>
-
-<script src="helper_functions.js"></script>
-<script>
-    let gameTime = 30;
-    let timer;
-    let timeToSpawn = randomRange(10, 20);
-    let fruitModels = ['assets/fruits/apple.gltf', 'assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
-
-    AFRAME.registerComponent('thumbstick', {
-        init: function () {
-            this.el.addEventListener('thumbstickmoved', this.logThumbstick);
-        },
-        logThumbstick: function (evt) {
-            let player = document.querySelector('#rig');
-            if (evt.detail.y > 0.5) {
-                //Backward
-                var direction = new THREE.Vector3(0, 0, 1);
-                direction.multiplyScalar(0.1);
-                var pos = player.getAttribute("position");
-                pos.add(direction);
-                player.setAttribute('position', pos);
-            }
-            if (evt.detail.y < -0.5) {
-                //Forward
-                var direction = new THREE.Vector3(0, 0, -1);
-                direction.multiplyScalar(0.1);
-                var pos = player.getAttribute("position");
-                pos.add(direction);
-                player.setAttribute('position', pos);
-            }
-            if (evt.detail.x < -0.5) {
-                //Left
-                var direction = new THREE.Vector3(-1, 0, 0);
-                direction.multiplyScalar(0.1);
-                var pos = player.getAttribute("position");
-                pos.add(direction);
-                player.setAttribute('position', pos);
-            }
-            if (evt.detail.x > 0.5) {
-                //Right
-                var direction = new THREE.Vector3(1, 0, 0);
-                direction.multiplyScalar(0.1);
-                var pos = player.getAttribute("position");
-                pos.add(direction);
-                player.setAttribute('position', pos);
-            }
-        }
-    });
-
-    AFRAME.registerComponent('lookstick', {
-        init: function () {
-            this.el.addEventListener('thumbstickmoved', this.logThumbstick);
-        },
-        logThumbstick: function (evt) {
-            let player = document.querySelector('#rig');
-            if (evt.detail.x < -0.5) {
-                //Left
-                var direction = new THREE.Euler(0, 1, 0);
-                direction.multiplyScalar(1);
-                var rot = player.getAttribute("rotation");
-                rot.add(direction);
-                player.setAttribute('rotation', rot);
-            }
-            if (evt.detail.x > 0.5) {
-                //Right
-                var direction = new THREE.Euler(0, -1, 0);
-                direction.multiplyScalar(1);
-                var rot = player.getAttribute("rotation");
-                rot.add(direction);
-                player.setAttribute('rotation', rot);
-            }
-        }
-    });
-
-    AFRAME.registerComponent("fruitgenerator", {
-        init: function () {
-        },
-        tick: function () {
-            if (timeToSpawn <= 0) {
-                generateFruit(this.el);
-                timeToSpawn = randomRange(10, 20);
-            }
-        },
-
-    });
-
-    function generateFruit(element) {
-        let scene = document.querySelector("#scene");
-        let newFruit = document.createElement('a-sphere');
-
-        newFruit.setAttribute('gltf-model', fruitModels[Math.floor(Math.random() * fruitModels.length)]);
-        newFruit.setAttribute('scale', '0.3 0.3 0.3 ');
-        newFruit.setAttribute('rotation', `${Math.random() * 180} ${Math.random() * 180} ${Math.random() * 180}`);
-
-        let newX = Math.random() * 2 - 1;
-        newFruit.setAttribute("position", `${newX} 2 -14`);
-        newFruit.setAttribute("velocity", `${randomRange(-1, 1)} ${randomRange(1, 3)} 13`);
-        scene.appendChild(newFruit);
-        newFruit.setAttribute("dynamic-body", "shape:sphere; sphereRadius: 0.25");
-        newFruit.setAttribute('sound', 'src:#slice; autoplay: false');
-
-        newFruit.addEventListener('collide', function (e) {
-            newFruit.setAttribute('visible', 'false');
-            if (e.detail.body.id == document.querySelector('#heldKatana').body.id) {
-                //Sword Hit
-                newFruit.components.sound.playSound();
-                console.log('Fruit has collided sword.')
-            }
-            else if (e.detail.body.id == 1) {
-                console.log('Fruit has collided ground.')
-            }
-        });
-
-    }
-
-    AFRAME.registerComponent("worldkatana", {
-        init: function () {
-            let scene = document.querySelector("#scene");
-            let handKatana = document.querySelector('#heldKatana');
-            let worldKatana = document.querySelector('#worldKatana');
-
-            this.el.addEventListener("grab-start", function () {
-                handKatana.setAttribute("visible", "true");
-                worldKatana.setAttribute("visible", "false");
-                timer = setInterval(function () {
-                    timeToSpawn--;
-                }, 1000);
-            })
-        },
-    });
-</script>
-
-<body>
-    <a-scene id="scene" physics="friction: 0.5; restitution: 0.5; gravity: -5;">
-        <!-- Assets -->
-        <a-assets>
-            <img id="groundTexture" src="assets/courtyardfloor.jpg">
-            <img id="wallTexture" src="assets/sildingtexture.png">
-            <img id="skyTexture" src="assets/skyimg.jpg">
-            <a-asset-item id="fence-model" src="assets/fence/scene.gltf"></a-asset-item>
-            <a-asset-item id="tree-model" src="assets/tree/scene.gltf"></a-asset-item>
-            <a-asset-item id="gong-model" src="assets/gong/scene.gltf"></a-asset-item>
-            <a-asset-item id="courtyard-model" src="assets/courtyard/scene.gltf"></a-asset-item>
-            <a-asset-item id="katana" src="assets/katana/katana.gltf"></a-asset-item>
-            <audio id="slice" src="assets/slice.mp3" preload="auto"></audio>
-        </a-assets>
-
-        <!-- Player Spawn -->
-        <!-- <a-entity id="rig" rotation="0 0 0" position="0 2 5">
-            <a-camera look-controls wasd-controls></a-camera>
-
-            <a-entity super-hands grab id="leftHand" hand-controls="hand: left;" thumb-controls="hand: left"
-                static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"
-                rotation="20 0 0" lookstick></a-entity>
-            <a-entity super-hands grab id="rightHand" hand-controls="hand: right;" thumb-controls="hand: right"
-                static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"
-                rotation="-80 0 0" thumbstick>
-                <a-entity id="heldKatana" position="-0.025 0.12 -0.47" scale="0.35 0.35 0.35" rotation="75 180 0"
-                    visible="false" body="type: static; mass: 5; shape: none;" shape__main="shape: box;
-                         halfExtents: 0.15 1.65 0.15;">
-                    <a-entity gltf-model="#katana" position="0 -1.5 0"></a-entity>
-                </a-entity>
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
+        <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+        <script src="https://craignyu.github.io/aframep5/libraries/aframep5-v2.3.js"></script>
+    
+    </head>
+    <body>
+        <a-scene>
+            <!-- Ground 
+            <a-plane 
+                position="0 0 0" 
+                rotation="-90 0 0" 
+                width="100" 
+                height="100" 
+                material="src: #groundTexture; repeat: 20 20">
+            </a-plane>
+            -->
+        
+            <!-- Table -->
+            <a-box 
+                position="0 0.75 17" 
+                depth="2" 
+                height="0.5" 
+                width="4" 
+                color="#8B5A2B">
+            </a-box>
+        
+            <!-- Player Spawn -->
+            <a-entity position="0 1.6 20">
+                <a-camera></a-camera>
             </a-entity>
-        </a-entity> -->
+        
+            <!-- Sky -->
+            <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
+        
+            <!-- Assets -->
+            <a-assets>
+                <img id="groundTexture" src="Assets/courtyardfloor.jpg">
+                <img id="wallTexture" src="Assets/sildingtexture.png">
+                <img id="skyTexture" src="Assets/skyimg.jpg">
+                <a-asset-item id="fence-model" src="Assets/fence/scene.gltf"></a-asset-item>
+                <a-asset-item id="tree-model" src="Assets/tree/scene.gltf"></a-asset-item>
+                <a-asset-item id="gong-model" src="Assets/gong/scene.gltf"></a-asset-item>
+                <a-asset-item id="courtyard-model" src="Assets/courtyard/scene.gltf"></a-asset-item>
+            </a-assets>
 
-        <!-- Sky -->
-        <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
-
-        <a-entity fruitgenerator position="50 1 0"></a-entity>
-        <!-- Table -->
-        <a-box position="35 1.5 0" rotation='0 90 0' depth="3" height="0.5" width="8" color="#8B5A2B">
-        </a-box>
-        <a-entity worldkatana grabbable class="interactable" id="worldKatana" position="35 2 0" rotation="0 90 90"
-            geometry="primitive: box; width: 0.35; height: 5; depth: 0.35">
-            <a-entity gltf-model="#katana" scale="1.8 1.8 1.8" position="0 -3 0"></a-entity>
-        </a-entity>
-
-        <!-- Scenes -->
-        <a-entity gltf-model="#courtyard-model" position="-8 0 0" depth="0.1" scale="16 8 16"></a-entity>
-        <a-entity gltf-model="#gong-model" position="0.2 0 -15" depth="0.1" scale="1.1 1.1 1.1"></a-entity>
-        <a-entity gltf-model="#tree-model" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
-        <a-entity gltf-model="#tree-model" position="51 4 -45" depth="0.1" scale="5 5 5" rotation="0 180 0"></a-entity>
-        <a-entity gltf-model="#tree-model" position="46 4 43" depth="0.1" scale="5 5 5" rotation="0 100 0"></a-entity>
-        <a-entity gltf-model="#tree-model" position="-46 4 43" depth="0.1" scale="5 5 5" rotation="0 130 0"></a-entity>
-    </a-scene>
-
-
-</body>
-
+            <a-entity gltf-model="#courtyard-model" position="-8 0 0" depth="0.1" scale="16 8 16"></a-entity>
+            <a-entity gltf-model="#gong-model" position="0.2 0 -15" depth="0.1" scale="1.1 1.1 1.1"></a-entity>
+              <!-- Place the model in the scene 
+              <a-entity gltf-model="#fence-model" position="-17 -1 -5" depth="0.1" scale="1.5 1.5 1.5"></a-entity>
+              <a-entity gltf-model="#fence-model" position="-27 -1 35" depth="0.1" scale="1.5 1.5 1.5" 
+              rotation="0 90 0"></a-entity>
+              <a-entity gltf-model="#fence-model" position="-17 -1 55" depth="0.1" scale="1.5 1.5 1.5"></a-entity>
+              <a-entity gltf-model="#fence-model" position="43 -1 35" depth="0.1" scale="1.5 1.5 1.5" 
+              rotation="0 90 0"></a-entity>
+                -->
+              <a-entity gltf-model="#tree-model" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
+              <a-entity gltf-model="#tree-model" position="51 4 -45" depth="0.1" scale="5 5 5" rotation="0 180 0"></a-entity>
+              <a-entity gltf-model="#tree-model" position="46 4 43" depth="0.1" scale="5 5 5" rotation="0 100 0"></a-entity>
+              <a-entity gltf-model="#tree-model" position="-46 4 43" depth="0.1" scale="5 5 5" rotation="0 130 0"></a-entity>
+                
+            <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/super-hands@4.0.2/dist/super-hands.min.js"></script>
+        </a-scene>
+         
+        
+    </body>
 </html>
