@@ -19,6 +19,7 @@
     let timeToSpawn = randomRange(10, 20);
     let fruitModels = ['assets/fruits/apple.gltf', 'assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
     let score = 0;
+    let highscore = 0;
 
     AFRAME.registerComponent('thumbstick', {
         init: function () {
@@ -139,13 +140,22 @@
                     timeToSpawn--;
                 }, 1000);
 
-                setTimeout(function(){
+                setTimeout(function () {
                     clearInterval(timer);
+                    timeToSpawn = random();
                     handKatana.setAttribute("visible", "false");
                     worldKatana.setAttribute("visible", "true");
                 }, 60000);
             })
         },
+    });
+
+    AFRAME.registerComponent("scoretext", {
+        init: function () {
+        },
+        tick: function(){
+            this.el.setAttribute("value", score);
+        }
     });
 </script>
 
@@ -188,8 +198,8 @@
         <a-entity gltf-model="#tree-model" position="10 3.25 -12" scale="5 5 5" rotation="0 200 0"></a-entity>
         <a-entity gltf-model="#tree-model" position="42 3.25 13" scale="5 5 5" rotation="0 100 0"></a-entity>
         <a-entity gltf-model="#tree-model" position="-28 3.25 38" scale="5 5 5" rotation="0 167 0"></a-entity>
-         <!--crates-->
-         <!-- <a-entity scale="0.5 0.5 0.5" position="0 -1 0">
+        <!--crates-->
+        <!-- <a-entity scale="0.5 0.5 0.5" position="0 -1 0">
             <a-entity gltf-model="#crate1" position="55 0 -10" scale="5.5 4.8 5" rotation="0 110 0"></a-entity>
             <a-entity gltf-model="#crate1" position="45 0 -18"  scale="5.5 4.8 5" rotation="0 170 0"></a-entity>
             <a-entity gltf-model="#crate1" position="50 0 15"  scale="5.5 4.8 5" rotation="0 90 0"></a-entity>
@@ -197,15 +207,23 @@
             <a-entity gltf-model="#crate2" position="40 0 15" scale="0.05 0.05 0.05" rotation="0 170 0"></a-entity>
             <a-entity gltf-model="#crate2" position="45 0 20" scale="0.05 0.05 0.05" rotation="0 200 0"></a-entity>
          </a-entity> -->
-         
-         <!-- table -->
-         <a-entity gltf-model="#table" position="15 -1 0.25"  scale="2.25 1.5 2.75" rotation="0 90 0"></a-entity>
 
-         <!--ambient sound-->
-         <a-sound id="bgm" src="url(sounds/bgm.mp3)" autoplay="true" loop="true" volume="0.5" position="0 0 0"></a-sound>
-         <a-sound id="ambient" src="url(sounds/ambient.mp3)" autoplay="true" loop="true" volume="0.8" position="0 0 0"></a-sound>
+        <!-- table -->
+        <a-entity gltf-model="#table" position="15 -1 0.25" scale="2 1.5 2.5" rotation="0 90 0"></a-entity>
 
-        <a-plane color="grey" rotation="-90 0 0" scale="100 100 100" visible = "false" static-body></a-plane>
+        <!-- scoreboard -->
+        <a-box width="4" depth="0.5" height="2"  color="#825c4e" position="28 5 0" rotation="20 -90 0">
+            <a-text scoretext value="You should not see this." position="0 0 0.35" scale="2 2 2"></a-text>
+        </a-box>
+
+        <!--ambient sound-->
+        <a-sound id="bgm" src="url(sounds/bgm.mp3)" autoplay="true" loop="true" volume="0.5" position="0 0 0"></a-sound>
+        <a-sound id="ambient" src="url(sounds/ambient.mp3)" autoplay="true" loop="true" volume="0.8"
+            position="0 0 0"></a-sound>
+        
+
+
+        <a-plane color="grey" rotation="-90 0 0" scale="100 100 100" visible="false" static-body></a-plane>
         <a-entity fruitgenerator position="0 0 0"></a-entity>
 
         <a-entity worldkatana grabbable class="interactable" id="worldKatana" position="15 0.25 -0.5" rotation="0 90 90"
