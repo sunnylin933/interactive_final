@@ -27,7 +27,6 @@
         },
         logThumbstick: function (evt) {
             let player = document.querySelector('#rig');
-            
             if (evt.detail.y > 0.95) { 
                 //Backward
                 var direction = new THREE.Vector3(0,0,1);
@@ -46,7 +45,7 @@
             }
             if (evt.detail.x < -0.95) {
                 //Left
-                var direction = new THREE.Vector3(1,0,0);
+                var direction = new THREE.Vector3(-1,0,0);
                 direction.multiplyScalar(0.1);
                 var pos = player.getAttribute("position");
                 pos.add(direction);
@@ -54,11 +53,36 @@
             }
             if (evt.detail.x > 0.95) { 
                 //Right
-                var direction = new THREE.Vector3(-1,0,0);
+                var direction = new THREE.Vector3(1,0,0);
                 direction.multiplyScalar(0.1);
                 var pos = player.getAttribute("position");
                 pos.add(direction);
                 player.setAttribute('position',pos);  
+            }
+        }
+    });
+
+    AFRAME.registerComponent('lookstick', {
+        init: function () {
+            this.el.addEventListener('thumbstickmoved', this.logThumbstick);
+        },
+        logThumbstick: function (evt) {
+            let player = document.querySelector('#rig');
+            if (evt.detail.x < -0.95) {
+                //Left
+                var direction = new THREE.Vector3(0,-1,0);
+                direction.multiplyScalar(0.5);
+                var rot = player.getAttribute("rotation");
+                rot.add(direction);
+                player.setAttribute('rotation',rot);  
+            }
+            if (evt.detail.x > 0.95) { 
+                //Right
+                var direction = new THREE.Vector3(0,1,0);
+                direction.multiplyScalar(0.5);
+                var pos = player.getAttribute("rotation");
+                rot.add(direction);
+                player.setAttribute('rotation',rot);  
             }
         }
     });
@@ -127,7 +151,7 @@
 
             <a-entity super-hands grab id="leftHand" hand-controls="hand: left;" thumb-controls="hand: left"
                 static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"
-                rotation="20 0 0"></a-entity>
+                rotation="20 0 0" lookstick></a-entity>
 
             <a-entity super-hands grab id="rightHand" hand-controls="hand: right;" thumb-controls="hand: right"
                 static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"
