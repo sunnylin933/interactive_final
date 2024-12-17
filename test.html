@@ -19,8 +19,7 @@
     let gameTime = 30;
     let timer;
     let timeToSpawn = randomRange(10, 20);
-    let fruitModels = ['#appleModel', '#orangeModel', '#lemonModel', '#peachModel', '#watermelonModel'];
-    let score = 0;
+    let fruitModels = ['assets/fruits/apple.gltf', 'assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
 
     AFRAME.registerComponent('thumbstick', {
         init: function () {
@@ -149,19 +148,14 @@
 <body>
     <a-scene id="scene" physics="friction: 0.5; restitution: 0.5; gravity: -5;">
         <a-assets>
-            <!-- <img id="groundTexture" src="assets/courtyardfloor.jpg">
-            <img id="wallTexture" src="assets/sildingtexture.png"> -->
+            <img id="groundTexture" src="assets/courtyardfloor.jpg">
+            <img id="wallTexture" src="assets/sildingtexture.png">
             <img id="skyTexture" src="assets/skyimg.jpg">
-            <!-- <a-asset-item id="treeModel" src="assets/tree/scene.gltf"></a-asset-item>
-            <a-asset-item id="gongModel" src="assets/gong/scene.gltf"></a-asset-item>
-            <a-asset-item id="courtyardModel" src="assets/courtyard/scene.gltf"></a-asset-item> -->
-
-            <a-asset-item id="katanaModel" src="assets/katana/katana.gltf"></a-asset-item>
-            <a-asset-item id="appleModel" src="assets/fruits/apple.gltf"></a-asset-item>
-            <a-asset-item id="lemonModel" src="assets/fruits/lemon.gltf"></a-asset-item>
-            <a-asset-item id="orangeModel" src="assets/fruits/orange.gltf"></a-asset-item>
-            <a-asset-item id="peachModel" src="assets/fruits/peach.gltf"></a-asset-item>
-            <a-asset-item id="watermelonModel" src="assets/fruits/watermelon.gltf"></a-asset-item>
+            <a-asset-item id="fence-model" src="assets/fence/scene.gltf"></a-asset-item>
+            <a-asset-item id="tree-model" src="assets/tree/scene.gltf"></a-asset-item>
+            <a-asset-item id="gong-model" src="assets/gong/scene.gltf"></a-asset-item>
+            <a-asset-item id="courtyard-model" src="assets/courtyard/scene.gltf"></a-asset-item>
+            <a-asset-tem id="katana-model" src="assets/katana/katana.gltf"></a-asset-tem>
             <audio id="slice" src="assets/slice.mp3" preload="auto"></audio>
         </a-assets>
 
@@ -178,12 +172,11 @@
                 <a-entity id="heldKatana" position="-0.025 0.12 -0.47" scale="0.35 0.35 0.35" rotation="75 180 0"
                     visible="false" body="type: static; mass: 5; shape: none;" shape__main="shape: box;
                          halfExtents: 0.15 1.65 0.15;">
-                    <a-entity gltf-model="#katanaModel" position="0 -1.5 0"></a-entity>
+                    <a-entity gltf-model="assets/katana/katana.gltf" position="0 -1.5 0"></a-entity>
                 </a-entity>
             </a-entity>
         </a-entity>
 
-        <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
         <a-plane color="grey" rotation="-90 0 0" scale="20 20 20" static-body></a-plane>
         <a-entity fruitgenerator position="0 0 0"></a-entity>
         <a-entity worldkatana grabbable class="interactable" id="worldKatana" position="0 1 -0.5" rotation="0 180 90"
