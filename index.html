@@ -11,63 +11,70 @@
     </head>
     <body>
         <a-scene>
-            <!-- Ground 
-            <a-plane 
-                position="0 0 0" 
-                rotation="-90 0 0" 
-                width="100" 
-                height="100" 
-                material="src: #groundTexture; repeat: 20 20">
-            </a-plane>
-            -->
-        
-            <!-- Table -->
-            <a-box 
-                position="0 0.75 17" 
-                depth="2" 
-                height="0.5" 
-                width="4" 
-                color="#8B5A2B">
-            </a-box>
-        
-            <!-- Player Spawn -->
+
+            <!-- player -->
             <a-entity position="0 1.6 20">
                 <a-camera></a-camera>
             </a-entity>
-        
-            <!-- Sky -->
+
             <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
         
-            <!-- Assets -->
             <a-assets>
-                <img id="groundTexture" src="Assets/courtyardfloor.jpg">
-                <img id="wallTexture" src="Assets/sildingtexture.png">
                 <img id="skyTexture" src="Assets/skyimg.jpg">
-                <a-asset-item id="fence-model" src="Assets/fence/scene.gltf"></a-asset-item>
                 <a-asset-item id="tree-model" src="Assets/tree/scene.gltf"></a-asset-item>
                 <a-asset-item id="gong-model" src="Assets/gong/scene.gltf"></a-asset-item>
                 <a-asset-item id="courtyard-model" src="Assets/courtyard/scene.gltf"></a-asset-item>
+                <a-asset-item id="crate1" src="Assets/crate/scene.gltf"></a-asset-item>
+                <a-asset-item id="crate2" src="Assets/crate2/scene.gltf"></a-asset-item>
+                <a-asset-item id="cart" src="Assets/cart/scene.gltf"></a-asset-item>
+                <a-asset-item id="table" src="Assets/table/scene.gltf"></a-asset-item>
             </a-assets>
 
+
+            <!--courtyard-->
             <a-entity gltf-model="#courtyard-model" position="-8 0 0" depth="0.1" scale="16 8 16"></a-entity>
             <a-entity gltf-model="#gong-model" position="0.2 0 -15" depth="0.1" scale="1.1 1.1 1.1"></a-entity>
-              <!-- Place the model in the scene 
-              <a-entity gltf-model="#fence-model" position="-17 -1 -5" depth="0.1" scale="1.5 1.5 1.5"></a-entity>
-              <a-entity gltf-model="#fence-model" position="-27 -1 35" depth="0.1" scale="1.5 1.5 1.5" 
-              rotation="0 90 0"></a-entity>
-              <a-entity gltf-model="#fence-model" position="-17 -1 55" depth="0.1" scale="1.5 1.5 1.5"></a-entity>
-              <a-entity gltf-model="#fence-model" position="43 -1 35" depth="0.1" scale="1.5 1.5 1.5" 
-              rotation="0 90 0"></a-entity>
-                -->
               <a-entity gltf-model="#tree-model" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
               <a-entity gltf-model="#tree-model" position="51 4 -45" depth="0.1" scale="5 5 5" rotation="0 180 0"></a-entity>
               <a-entity gltf-model="#tree-model" position="46 4 43" depth="0.1" scale="5 5 5" rotation="0 100 0"></a-entity>
               <a-entity gltf-model="#tree-model" position="-46 4 43" depth="0.1" scale="5 5 5" rotation="0 130 0"></a-entity>
                 
+            <!--crates, cart-->
+              <a-entity gltf-model="#crate1" position="55 0 -10" depth="0.1" scale="5 5 5" rotation="0 110 0"></a-entity>
+              <a-entity gltf-model="#crate1" position="40 0 -18" depth="0.1" scale="5 5 5" rotation="0 170 0"></a-entity>
+              <a-entity gltf-model="#crate1" position="55 0 10" depth="0.1" scale="5 5 5" rotation="0 90 0"></a-entity>
+              <a-entity gltf-model="#crate2" position="37 0 -10" depth="0.1" scale="0.05 0.05 0.05" rotation="0 110 0"></a-entity>
+              <a-entity gltf-model="#crate2" position="40 0 15" depth="0.1" scale="0.05 0.05 0.05" rotation="0 170 0"></a-entity>
+              <a-entity gltf-model="#crate2" position="45 0 20" depth="0.1" scale="0.05 0.05 0.05" rotation="0 200 0"></a-entity>
+              <a-entity gltf-model="#cart" position="50 0 -20" depth="0.1" scale="5 5 5" rotation="0 0 0"></a-entity>
+              <a-entity gltf-model="#cart" position="50 0 20" depth="0.1" scale="5 5 5" rotation="0 200 0"></a-entity>
+              
+              <!-- table -->
+              <a-entity gltf-model="#table" position="0 0 17" depth="0.1" scale="3 1.5 3" rotation="0 0 0"></a-entity>
+
+              <!--ambient sound-->
+              <a-sound id="bgm" src="url(sounds/bgm.mp3)" autoplay="false" loop="true" volume="0.5" position="0 0 0"></a-sound>
+              <a-sound id="ambient" src="url(sounds/ambient.mp3)" autoplay="false" loop="true" volume="0.8" position="0 0 0"></a-sound>
+
             <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/super-hands@4.0.2/dist/super-hands.min.js"></script>
         </a-scene>
          
-        
+        <script>
+            window.addEventListener('keydown', function() {
+              const sound = document.getElementById('bgm');
+              const sound2 = document.getElementById('ambient');
+              sound.components.sound.playSound();
+              sound2.components.sound.playSound();
+            });
+
+            const controller = document.getElementById('controller');
+            controller.addEventListener('triggerdown', function () {
+            const sound = document.getElementById('bgm');
+              const sound2 = document.getElementById('ambient');
+              sound.components.sound.playSound();
+              sound2.components.sound.playSound();
+             });
+          </script>
     </body>
 </html>

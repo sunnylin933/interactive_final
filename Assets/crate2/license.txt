@@ -1,0 +1,11 @@
+Model Information:
+* title:	Crate of Pears (Game Ready / 4K PBR)
+* source:	https://sketchfab.com/3d-models/crate-of-pears-game-ready-4k-pbr-f4c3ab39ce8b429082a6f0f598e6b2cf
+* author:	Meerschaum Digital (https://sketchfab.com/meerschaumdigital)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Crate of Pears (Game Ready / 4K PBR)" (https://sketchfab.com/3d-models/crate-of-pears-game-ready-4k-pbr-f4c3ab39ce8b429082a6f0f598e6b2cf) by Meerschaum Digital (https://sketchfab.com/meerschaumdigital) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
