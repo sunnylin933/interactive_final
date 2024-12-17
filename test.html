@@ -15,7 +15,6 @@
 
 <script src="helper_functions.js"></script>
 <script>
-    let gameTime = 30;
     let timer;
     let timeToSpawn = randomRange(10, 20);
     let fruitModels = ['assets/fruits/apple.gltf', 'assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
@@ -70,16 +69,14 @@
             let player = document.querySelector('#rig');
             if (evt.detail.x < -0.5) {
                 //Left
-                var direction = new THREE.Euler(0, 1, 0);
-                direction.multiplyScalar(1);
+                var direction = new THREE.Euler(0, 90, 0);
                 var rot = player.getAttribute("rotation");
                 rot.add(direction);
                 player.setAttribute('rotation', rot);
             }
             if (evt.detail.x > 0.5) {
                 //Right
-                var direction = new THREE.Euler(0, -1, 0);
-                direction.multiplyScalar(1);
+                var direction = new THREE.Euler(0, -90, 0);
                 var rot = player.getAttribute("rotation");
                 rot.add(direction);
                 player.setAttribute('rotation', rot);
@@ -141,6 +138,12 @@
                 timer = setInterval(function () {
                     timeToSpawn--;
                 }, 1000);
+
+                setTimeout(function(){
+                    clearInterval(timer);
+                    handKatana.setAttribute("visible", "false");
+                    worldKatana.setAttribute("visible", "true");
+                }, 60000);
             })
         },
     });
@@ -152,6 +155,11 @@
             <img id="skyTexture" src="Assets/skyimg.jpg">
             <a-asset-item id="tree-model" src="Assets/tree/scene.gltf"></a-asset-item>
             <a-asset-item id="courtyard-model" src="Assets/courtyard/scene.gltf"></a-asset-item>
+            <a-asset-item id="gong-model" src="Assets/gong/scene.gltf"></a-asset-item>
+            <a-asset-item id="crate1" src="Assets/crate/scene.gltf"></a-asset-item>
+            <a-asset-item id="crate2" src="Assets/crate2/scene.gltf"></a-asset-item>
+            <a-asset-item id="cart" src="Assets/cart/scene.gltf"></a-asset-item>
+            <a-asset-item id="table" src="Assets/table/scene.gltf"></a-asset-item>
             <audio id="slice" src="assets/slice.mp3" preload="auto"></audio>
         </a-assets>
 
@@ -174,11 +182,31 @@
         </a-entity>
 
         <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
+        <!--courtyard-->
         <a-entity gltf-model="#courtyard-model" position="-4 -1 0" scale="8 5 8"></a-entity>
+        <!--tree-->
         <a-entity gltf-model="#tree-model" position="-31 3.25 -35" scale="5 5 5"></a-entity>
         <a-entity gltf-model="#tree-model" position="10 3.25 -12" scale="5 5 5" rotation="0 200 0"></a-entity>
         <a-entity gltf-model="#tree-model" position="42 3.25 13" scale="5 5 5" rotation="0 100 0"></a-entity>
         <a-entity gltf-model="#tree-model" position="-28 3.25 38" scale="5 5 5" rotation="0 167 0"></a-entity>
+         <!--crates, cart-->
+         <a-entity scale="0.5 0.5 0.5" position="0 -1 0">
+            <a-entity gltf-model="#crate1" position="55 0 -10" scale="5 5 5" rotation="0 110 0"></a-entity>
+            <a-entity gltf-model="#crate1" position="40 0 -18"  scale="5 5 5" rotation="0 170 0"></a-entity>
+            <a-entity gltf-model="#crate1" position="55 0 10"  scale="5 5 5" rotation="0 90 0"></a-entity>
+            <a-entity gltf-model="#crate2" position="37 0 -10"  scale="0.05 0.05 0.05" rotation="0 110 0"></a-entity>
+            <a-entity gltf-model="#crate2" position="40 0 15" scale="0.05 0.05 0.05" rotation="0 170 0"></a-entity>
+            <a-entity gltf-model="#crate2" position="45 0 20" scale="0.05 0.05 0.05" rotation="0 200 0"></a-entity>
+            <a-entity gltf-model="#cart" position="50 0 -20" scale="5 5 5" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#cart" position="50 0 20" scale="5 5 5" rotation="0 200 0"></a-entity>
+         </a-entity>
+         
+         <!-- table -->
+         <a-entity gltf-model="#table" position="0 0 17" depth="0.1" scale="3 1.5 3" rotation="0 0 0"></a-entity>
+
+         <!--ambient sound-->
+         <a-sound id="bgm" src="url(sounds/bgm.mp3)" autoplay="false" loop="true" volume="0.5" position="0 0 0"></a-sound>
+         <a-sound id="ambient" src="url(sounds/ambient.mp3)" autoplay="false" loop="true" volume="0.8" position="0 0 0"></a-sound>
 
         <a-plane color="grey" rotation="-90 0 0" scale="100 100 100" visible = "false" static-body></a-plane>
         <a-entity fruitgenerator position="0 0 0"></a-entity>
