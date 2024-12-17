@@ -16,7 +16,7 @@
 <script src="helper_functions.js"></script>
 <script>
     let timer;
-    let timeToSpawn = randomRange(10, 20);
+    let timeToSpawn = randomRange(2, 5);
     let fruitModels = ['assets/fruits/apple.gltf', 'assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
     let score = 0;
     let highscore = 0;
@@ -144,7 +144,7 @@
         tick: function () {
             if (timeToSpawn <= 0) {
                 generateFruit(this.el);
-                timeToSpawn = randomRange(10, 20);
+                timeToSpawn = randomRange(2, 5);
             }
         },
 
