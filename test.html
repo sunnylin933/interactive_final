@@ -18,7 +18,7 @@
 <script>
     let gameTime = 30;
     let timer;
-    let timeToSpawn = randomRange(2, 10);
+    let timeToSpawn = randomRange(10, 20);
     let fruitModels = ['assets/fruits/apple.gltf','assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
 
     AFRAME.registerComponent('thumbstick', {
@@ -27,7 +27,7 @@
         },
         logThumbstick: function (evt) {
             let player = document.querySelector('#rig');
-            if (evt.detail.y > 0.95) { 
+            if (evt.detail.y > 0.5) { 
                 //Backward
                 var direction = new THREE.Vector3(0,0,1);
                 direction.multiplyScalar(0.1);
@@ -35,7 +35,7 @@
                 pos.add(direction);
                 player.setAttribute('position',pos);
             }
-            if (evt.detail.y < -0.95) { 
+            if (evt.detail.y < -0.5) { 
                 //Forward
                 var direction = new THREE.Vector3(0,0,-1);
                 direction.multiplyScalar(0.1);
@@ -43,7 +43,7 @@
                 pos.add(direction);
                 player.setAttribute('position',pos); 
             }
-            if (evt.detail.x < -0.95) {
+            if (evt.detail.x < -0.5) {
                 //Left
                 var direction = new THREE.Vector3(-1,0,0);
                 direction.multiplyScalar(0.1);
@@ -51,7 +51,7 @@
                 pos.add(direction);
                 player.setAttribute('position',pos);  
             }
-            if (evt.detail.x > 0.95) { 
+            if (evt.detail.x > 0.5) { 
                 //Right
                 var direction = new THREE.Vector3(1,0,0);
                 direction.multiplyScalar(0.1);
@@ -68,19 +68,19 @@
         },
         logThumbstick: function (evt) {
             let player = document.querySelector('#rig');
-            if (evt.detail.x < -0.95) {
+            if (evt.detail.x < -0.5) {
                 //Left
-                var direction = new THREE.Vector3(0,-1,0);
-                direction.multiplyScalar(0.5);
+                var direction = new THREE.Euler(0,1,0);
+                direction.multiplyScalar(1);
                 var rot = player.getAttribute("rotation");
                 rot.add(direction);
                 player.setAttribute('rotation',rot);  
             }
-            if (evt.detail.x > 0.95) { 
+            if (evt.detail.x > 0.5) { 
                 //Right
-                var direction = new THREE.Vector3(0,1,0);
-                direction.multiplyScalar(0.5);
-                var pos = player.getAttribute("rotation");
+                var direction = new THREE.Euler(0,-1,0);
+                direction.multiplyScalar(1);
+                var rot = player.getAttribute("rotation");
                 rot.add(direction);
                 player.setAttribute('rotation',rot);  
             }
@@ -117,8 +117,12 @@
         newFruit.addEventListener('collide', function (e) {
             newFruit.setAttribute('visible', 'false');
             if (e.detail.body.id == document.querySelector('#heldKatana').body.id) {
+                //Sword Hit
                 newFruit.components.sound.playSound();
                 console.log('Fruit has collided sword.')
+            }
+            else if(e.detail.body.id == 1){
+                console.log('Fruit has collided ground.')
             }
         });
 
@@ -146,7 +150,7 @@
         <a-assets>
             <audio id="slice" src="assets/slice.mp3" preload="auto"></audio>
         </a-assets>
-        <a-entity id="rig">
+        <a-entity id="rig" rotation="0 0 0">
             <a-camera look-controls wasd-controls></a-camera>
 
             <a-entity super-hands grab id="leftHand" hand-controls="hand: left;" thumb-controls="hand: left"
