@@ -148,7 +148,7 @@
     <a-scene id="scene" physics="gravity: -5;">
         <a-assets>
             <img id="skyTexture" src="Assets/skyimg.jpg">
-            <a-asset-item id="tree-model" src="assets/tree/scene.gltf"></a-asset-item>
+            <a-asset-item id="tree-model" src="Assets/tree/scene.gltf"></a-asset-item>
             <audio id="slice" src="assets/slice.mp3" preload="auto"></audio>
         </a-assets>
 
@@ -171,10 +171,10 @@
         </a-entity>
 
         <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
-        <a-entity gltf-model="assets/tree/scene.gltf" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
-        <a-entity gltf-model="assets/tree/scene.gltf" position="51 4 -45" depth="0.1" scale="5 5 5" rotation="0 180 0"></a-entity>
-        <a-entity gltf-model="assets/tree/scene.gltf" position="46 4 43" depth="0.1" scale="5 5 5" rotation="0 100 0"></a-entity>
-        <a-entity gltf-model="assets/tree/scene.gltf" position="-46 4 43" depth="0.1" scale="5 5 5" rotation="0 130 0"></a-entity>
+        <a-entity gltf-model="Assets/tree/scene.gltf" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
+        <!-- <a-entity gltf-model="Assets/tree/scene.gltf" position="51 4 -45" depth="0.1" scale="5 5 5" rotation="0 180 0"></a-entity>
+        <a-entity gltf-model="Assets/tree/scene.gltf" position="46 4 43" depth="0.1" scale="5 5 5" rotation="0 100 0"></a-entity>
+        <a-entity gltf-model="Assets/tree/scene.gltf" position="-46 4 43" depth="0.1" scale="5 5 5" rotation="0 130 0"></a-entity> -->
 
         <a-plane color="grey" rotation="-90 0 0" scale="100 100 100" static-body></a-plane>
         <a-entity fruitgenerator position="0 0 0"></a-entity>
