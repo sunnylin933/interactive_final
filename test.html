@@ -26,7 +26,15 @@
             this.el.addEventListener('thumbstickmoved', this.logThumbstick);
         },
         logThumbstick: function (evt) {
-            if (evt.detail.y > 0.95) { console.log("DOWN"); }
+            let player = document.querySelector('#rig');
+            
+            if (evt.detail.y > 0.95) { 
+                var direction = new THREE.Vector3(0,0,-1);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position',pos);
+            }
             if (evt.detail.y < -0.95) { console.log("UP"); }
             if (evt.detail.x < -0.95) { console.log("LEFT"); }
             if (evt.detail.x > 0.95) { console.log("RIGHT"); }
@@ -39,7 +47,7 @@
         tick: function () {
             if (timeToSpawn <= 0) {
                 generateFruit(this.el);
-                timeToSpawn = randomRange(2, 5);
+                timeToSpawn = randomRange(5, 10);
             }
         },
 
@@ -58,11 +66,11 @@
         newFruit.setAttribute("velocity", `${randomRange(-1, 1)} ${randomRange(1, 3)} 13`);
         scene.appendChild(newFruit);
         newFruit.setAttribute("dynamic-body", "shape:sphere; sphereRadius: 0.25");
-        newFruit.setAttribute('sound','src:#slice; autoplay: false');
+        newFruit.setAttribute('sound', 'src:#slice; autoplay: false');
 
         newFruit.addEventListener('collide', function (e) {
             newFruit.setAttribute('visible', 'false');
-            if(e.detail.body.id == document.querySelector('#heldKatana').body.id){
+            if (e.detail.body.id == document.querySelector('#heldKatana').body.id) {
                 newFruit.components.sound.playSound();
                 console.log('Fruit has collided sword.')
             }
@@ -101,7 +109,7 @@
 
             <a-entity super-hands grab id="rightHand" hand-controls="hand: right;" thumb-controls="hand: right"
                 static-body="shape: sphere; sphereRadius: 0.02;" sphere-collider="objects: .interactable"
-                rotation="-80 0 0">
+                rotation="-80 0 0" thumbstick>
                 <a-entity id="heldKatana" position="-0.025 0.12 -0.47" scale="0.35 0.35 0.35" rotation="75 180 0"
                     visible="false" body="type: static; mass: 5; shape: none;" shape__main="shape: box;
                          halfExtents: 0.15 1.65 0.15;">
