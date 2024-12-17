@@ -19,6 +19,7 @@
     let timer;
     let timeToSpawn = randomRange(10, 20);
     let fruitModels = ['assets/fruits/apple.gltf', 'assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
+    let score = 0;
 
     AFRAME.registerComponent('thumbstick', {
         init: function () {
@@ -119,6 +120,7 @@
                 //Sword Hit
                 newFruit.components.sound.playSound();
                 console.log('Fruit has collided sword.')
+                score += 100;
             }
             else if (e.detail.body.id == 1) {
                 console.log('Fruit has collided ground.')
@@ -171,7 +173,7 @@
         </a-entity>
 
         <a-sky src="#skyTexture" rotation="0 -90 0"></a-sky>
-        <a-entity gltf-model="Assets/tree/scene.gltf" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
+        <a-entity gltf-model="#tree-model" position="-51 4 -45" depth="0.1" scale="5 5 5"></a-entity>
         <!-- <a-entity gltf-model="Assets/tree/scene.gltf" position="51 4 -45" depth="0.1" scale="5 5 5" rotation="0 180 0"></a-entity>
         <a-entity gltf-model="Assets/tree/scene.gltf" position="46 4 43" depth="0.1" scale="5 5 5" rotation="0 100 0"></a-entity>
         <a-entity gltf-model="Assets/tree/scene.gltf" position="-46 4 43" depth="0.1" scale="5 5 5" rotation="0 130 0"></a-entity> -->
