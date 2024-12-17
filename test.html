@@ -19,7 +19,7 @@
     let gameTime = 30;
     let timer;
     let timeToSpawn = randomRange(2, 10);
-    let fruitModels = ['assets/fruits/apple_vertical.gltf'];
+    let fruitModels = ['assets/fruits/apple.gltf','assets/fruits/orange.gltf', 'assets/fruits/lemon.gltf', 'assets/fruits/peach.gltf', 'assets/fruits/watermelon.gltf'];
 
     AFRAME.registerComponent('thumbstick', {
         init: function () {
@@ -29,15 +29,37 @@
             let player = document.querySelector('#rig');
             
             if (evt.detail.y > 0.95) { 
-                var direction = new THREE.Vector3(0,0,-1);
+                //Backward
+                var direction = new THREE.Vector3(0,0,1);
                 direction.multiplyScalar(0.1);
                 var pos = player.getAttribute("position");
                 pos.add(direction);
                 player.setAttribute('position',pos);
             }
-            if (evt.detail.y < -0.95) { console.log("UP"); }
-            if (evt.detail.x < -0.95) { console.log("LEFT"); }
-            if (evt.detail.x > 0.95) { console.log("RIGHT"); }
+            if (evt.detail.y < -0.95) { 
+                //Forward
+                var direction = new THREE.Vector3(0,0,-1);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position',pos); 
+            }
+            if (evt.detail.x < -0.95) {
+                //Left
+                var direction = new THREE.Vector3(1,0,0);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position',pos);  
+            }
+            if (evt.detail.x > 0.95) { 
+                //Right
+                var direction = new THREE.Vector3(-1,0,0);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position',pos);  
+            }
         }
     });
 
@@ -47,7 +69,7 @@
         tick: function () {
             if (timeToSpawn <= 0) {
                 generateFruit(this.el);
-                timeToSpawn = randomRange(5, 10);
+                timeToSpawn = randomRange(10, 20);
             }
         },
 
@@ -58,7 +80,7 @@
         let newFruit = document.createElement('a-sphere');
 
         newFruit.setAttribute('gltf-model', fruitModels[Math.floor(Math.random() * fruitModels.length)]);
-        newFruit.setAttribute('scale', '0.35 0.35 0.35 ');
+        newFruit.setAttribute('scale', '0.3 0.3 0.3 ');
         newFruit.setAttribute('rotation', `${Math.random() * 180} ${Math.random() * 180} ${Math.random() * 180}`);
 
         let newX = Math.random() * 2 - 1;
