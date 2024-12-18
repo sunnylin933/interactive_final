@@ -32,7 +32,45 @@
             this.leftmotion = false;
         },
         tick: function () {
-            if (this.backwardsmotion) {
+            //Couldn't figure out why this wasn't working
+            // if (this.backwardsmotion) {
+            //     //Backward
+            //     var direction = new THREE.Vector3(0, 0, 1);
+            //     direction.multiplyScalar(0.1);
+            //     var pos = player.getAttribute("position");
+            //     pos.add(direction);
+            //     player.setAttribute('position', pos);
+            // }
+            // if (this.forwardmotion) {
+            //     //Forward
+            //     var direction = new THREE.Vector3(0, 0, -1);
+            //     direction.multiplyScalar(0.1);
+            //     var pos = player.getAttribute("position");
+            //     pos.add(direction);
+            //     player.setAttribute('position', pos);
+            // }
+            // if (this.leftmotion) {
+            //     //Left
+            //     var direction = new THREE.Vector3(-1, 0, 0);
+            //     direction.multiplyScalar(0.1);
+            //     var pos = player.getAttribute("position");
+            //     pos.add(direction);
+            //     player.setAttribute('position', pos);
+            // }
+            // if (this.rightmotion) {
+            //     //Right
+            //     var direction = new THREE.Vector3(1, 0, 0);
+            //     direction.multiplyScalar(0.1);
+            //     var pos = player.getAttribute("position");
+            //     pos.add(direction);
+            //     player.setAttribute('position', pos);
+            // }
+        },
+        logThumbstick: function (evt) {
+            let player = document.querySelector('#rig');
+            if (evt.detail.y > 0.5) {
+                // this.backwardmotion = true;
+                // this.forwardmotion = false;
                 //Backward
                 var direction = new THREE.Vector3(0, 0, 1);
                 direction.multiplyScalar(0.1);
@@ -40,56 +78,19 @@
                 pos.add(direction);
                 player.setAttribute('position', pos);
             }
-            if (this.forwardmotion) {
+            else {
+                // this.backwardmotion = false;
+            }
+
+            if (evt.detail.y < -0.5) {
+                // this.forwardmotion = true;
+                // this.backwardmotion = false;
                 //Forward
                 var direction = new THREE.Vector3(0, 0, -1);
                 direction.multiplyScalar(0.1);
                 var pos = player.getAttribute("position");
                 pos.add(direction);
                 player.setAttribute('position', pos);
-            }
-            if (this.leftmotion) {
-                //Left
-                var direction = new THREE.Vector3(-1, 0, 0);
-                direction.multiplyScalar(0.1);
-                var pos = player.getAttribute("position");
-                pos.add(direction);
-                player.setAttribute('position', pos);
-            }
-            if (this.rightmotion) {
-                //Right
-                var direction = new THREE.Vector3(1, 0, 0);
-                direction.multiplyScalar(0.1);
-                var pos = player.getAttribute("position");
-                pos.add(direction);
-                player.setAttribute('position', pos);
-            }
-        },
-        logThumbstick: function (evt) {
-            let player = document.querySelector('#rig');
-            if (evt.detail.y > 0.5) {
-                this.backwardmotion = true;
-                this.forwardmotion = false;
-                //Backward
-                // var direction = new THREE.Vector3(0, 0, 1);
-                // direction.multiplyScalar(0.1);
-                // var pos = player.getAttribute("position");
-                // pos.add(direction);
-                // player.setAttribute('position', pos);
-            }
-            else {
-                // this.backwardmotion = false;
-            }
-
-            if (evt.detail.y < -0.5) {
-                this.forwardmotion = true;
-                this.backwardmotion = false;
-                //Forward
-                // var direction = new THREE.Vector3(0, 0, -1);
-                // direction.multiplyScalar(0.1);
-                // var pos = player.getAttribute("position");
-                // pos.add(direction);
-                // player.setAttribute('position', pos);
 
             }
             else {
@@ -97,28 +98,28 @@
             }
 
             if (evt.detail.x < -0.5) {
-                this.leftmotion = true;
-                this.rightmotion = false;
+                // this.leftmotion = true;
+                // this.rightmotion = false;
                 //Left
-                // var direction = new THREE.Vector3(-1, 0, 0);
-                // direction.multiplyScalar(0.1);
-                // var pos = player.getAttribute("position");
-                // pos.add(direction);
-                // player.setAttribute('position', pos);
+                var direction = new THREE.Vector3(-1, 0, 0);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position', pos);
             }
             else {
                 // this.leftmotion = false;
             }
 
             if (evt.detail.x > 0.5) {
-                this.rightmotion = true;
-                this.leftmotion = false;
+                // this.rightmotion = true;
+                // this.leftmotion = false;
                 //Right
-                // var direction = new THREE.Vector3(1, 0, 0);
-                // direction.multiplyScalar(0.1);
-                // var pos = player.getAttribute("position");
-                // pos.add(direction);
-                // player.setAttribute('position', pos);
+                var direction = new THREE.Vector3(1, 0, 0);
+                direction.multiplyScalar(0.1);
+                var pos = player.getAttribute("position");
+                pos.add(direction);
+                player.setAttribute('position', pos);
             }
             else {
                 // this.rightmotion = false;
