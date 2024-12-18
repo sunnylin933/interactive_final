@@ -201,7 +201,7 @@
             let newBomb = document.createElement('a-sphere');
 
             newBomb.setAttribute('gltf-model', '#bomb');
-            newBomb.setAttribute('scale', '0.3 0.3 0.3 ');
+            newBomb.setAttribute('scale', '0.6 0.6 0.6');
             newBomb.setAttribute('rotation', `${Math.random() * 180} ${Math.random() * 180} ${Math.random() * 180}`);
 
             let newZ = Math.random() * 2 - 1;
@@ -261,13 +261,13 @@
 
             this.el.addEventListener('grab-end', function () {
                 if (isPlaying == false) {
-                    worldKatana.setAttribute("position", "15 0.25 -0.5");
+                    worldKatana.setAttribute("position", "15.5 0.25 -4.5");
                 }
             })
         },
         tick: function () {
             if (isPlaying == false) {
-                this.el.setAttribute('position', '15 0.25 -0.5')
+                this.el.setAttribute('position', '15.5 0.25 -4.5')
             }
         },
     });
@@ -346,8 +346,13 @@
         </a-entity>
 
         <!-- table -->
-        <a-entity gltf-model="#table" position="15 -1 0.25" scale="2 1.5 2.5" rotation="0 90 0"></a-entity>
-
+        <a-entity gltf-model="#table" position="15 -1 -4.5" scale="2 1.5 2.5" rotation="0 0 0"></a-entity>
+        
+        <a-entity worldkatana grabbable class="interactable" id="worldKatana" position="15.5 0.25 -4.5" rotation="0 0 90"
+            geometry="primitive: box; width: 0.5; height: 1; depth: 0.5" material="opacity: 0.0; transparent: true">
+            <a-entity gltf-model="assets/katana/katana.gltf" scale="1 1 1" position="0 -0.8 0"></a-entity>
+        </a-entity>
+        
         <!-- scoreboard -->
         <a-box width="4" depth="0.5" height="2" color="#825c4e" position="28 5 0" rotation="20 -90 0">
             <a-text scoretype value="Current Score:" position="0 0.5 0.35" scale="2 2 2" align="center"></a-text>
@@ -362,10 +367,6 @@
         <a-plane color="grey" rotation="-90 0 0" scale="100 100 100" visible="false" static-body></a-plane>
         <a-entity fruitgenerator position="0 0 0"></a-entity>
 
-        <a-entity worldkatana grabbable class="interactable" id="worldKatana" position="15 0.25 -0.5" rotation="0 90 90"
-            geometry="primitive: box; width: 0.5; height: 1; depth: 0.5" material="opacity: 0.0; transparent: true">
-            <a-entity gltf-model="assets/katana/katana.gltf" scale="1 1 1" position="0 -0.8 0"></a-entity>
-        </a-entity>
 </body>
 
 </html>
