@@ -148,13 +148,15 @@
         init: function () {
         },
         tick: function () {
-            if (timeToSpawn <= 0) {
-                generateFruit(this.el);
-                timeToSpawn = Math.floor(randomRange(4, 8));
-            }
-            if(bombToSpawn <= 0){
-                generateBomb(this.el);
-                bombToSpawn = Math.floor(randomRange(10, 18))
+            if (isPlaying) {
+                if (timeToSpawn <= 0) {
+                    generateFruit(this.el);
+                    timeToSpawn = Math.floor(randomRange(4, 8));
+                }
+                if (bombToSpawn <= 0) {
+                    generateBomb(this.el);
+                    bombToSpawn = Math.floor(randomRange(10, 18))
+                }
             }
         },
 
@@ -217,7 +219,7 @@
                 if (e.detail.body.id == handKatana.body.id) {
                     isPlaying = false;
                     clearInterval(timer);
-                    if(score > highscore){
+                    if (score > highscore) {
                         highscore = score;
                     }
                     score = 0;
@@ -247,7 +249,7 @@
                 setTimeout(function () {
                     isPlaying = false;
                     clearInterval(timer);
-                    if(score > highscore){
+                    if (score > highscore) {
                         highscore = score;
                     }
                     score = 0;
@@ -257,14 +259,14 @@
                 }, 30000);
             })
 
-            this.el.addEventListener('grab-end', function(){
-                if(isPlaying == false){
+            this.el.addEventListener('grab-end', function () {
+                if (isPlaying == false) {
                     worldKatana.setAttribute("position", "15 0.25 -0.5");
                 }
             })
         },
         tick: function () {
-            if(isPlaying == false){
+            if (isPlaying == false) {
                 this.el.setAttribute('position', '15 0.25 -0.5')
             }
         },
@@ -274,13 +276,13 @@
         init: function () {
         },
         tick: function () {
-            if(isPlaying){
+            if (isPlaying) {
                 this.el.setAttribute("value", score);
             }
-            else{
+            else {
                 this.el.setAttribute("value", highscore);
             }
-            
+
         }
     });
 
@@ -288,14 +290,13 @@
         init: function () {
         },
         tick: function () {
-            if(isPlaying){
+            if (isPlaying) {
                 this.el.setAttribute("value", 'Current Score:');
             }
-            else
-            {
+            else {
                 this.el.setAttribute("value", 'Highest Score:')
             }
-            
+
         }
     });
 </script>
