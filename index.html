@@ -212,11 +212,11 @@
             newBomb.setAttribute('sound', 'src:#bomb; autoplay: false');
 
             newBomb.addEventListener('collide', function (e) {
-                newBomb.components.sound.playSound();
                 let handKatana = document.querySelector('#heldKatana');
                 let worldKatana = document.querySelector('#worldKatana');
                 newBomb.setAttribute('visible', 'false');
                 if (e.detail.body.id == handKatana.body.id) {
+                    newBomb.components.sound.playSound();
                     isPlaying = false;
                     clearInterval(timer);
                     if (score > highscore) {
